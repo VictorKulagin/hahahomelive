@@ -6,12 +6,9 @@ import {
   View,
   Image,
   StyleSheet,
-  StatusBar,
-  SafeAreaView,
   FlatList,
   Dimensions,
 } from 'react-native';
-import LongTermRentalCreatorReducer from './redux/long-term-rental-creator-reducer';
 
 export const CardScreenRent = () => {
   const fetchRooms = useLongRentStore(state => state.fetchRooms);
@@ -34,6 +31,7 @@ export const CardScreenRent = () => {
     <>
       <View>
         <Text>CardScreenRent</Text>
+
         <Text>{`Product ID: ${selectedProductId}`}</Text>
         <Text>{`Product Name: ${selectedProductTitle}`}</Text>
         <Text>{`Product Name: ${selectedProductPictures}`}</Text>
@@ -45,7 +43,7 @@ export const CardScreenRent = () => {
             horizontal
             onScroll={e => {
               // @ts-ignore
-             // console.log(e.nativeEvent.contentOffset.x + ' x' + width);
+              console.log(e.nativeEvent.contentOffset.x + ' x' + width);
               setSelectedIndex(
                 (e.nativeEvent.contentOffset.x / width).toFixed(0),
               );
@@ -55,7 +53,11 @@ export const CardScreenRent = () => {
             renderItem={({item, index}) => {
               return (
                 <Image
-                  source={{uri: 'https://hahahome.live/' + item.value}}
+                  source={{
+                    uri: `https://hahahome.live/${
+                      typeof item === 'object' ? item.value : item
+                    }`,
+                  }}
                   style={{width: width, height: 200}}
                 />
               );

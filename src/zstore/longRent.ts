@@ -7,9 +7,52 @@ import {create} from 'zustand';
 //import {devtools} from 'zustand/middleware';
 //import * as zukeeper from 'zukeeper';
 
+interface RentType {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface City {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface GalleryLinks {
+  id: number;
+  value: string;
+  path: string;
+  file_name: string;
+}
+interface Gallery {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  value: string;
+  value_id: string;
+  links: GalleryLinks[];
+}
 interface Prop {
-  RENT_TYPE: [];
-  CITY: [];
+  RENT_TYPE: RentType[];
+  CITY: City[];
   SELLER: [];
   PRICE: [];
   CURRENCY: [];
@@ -19,7 +62,7 @@ interface Prop {
   TOTAL_FLOOR: [];
   REPAIR: [];
   TERMS_ANIMALS: [];
-  GALLERY: [];
+  GALLERY: Gallery[];
   ADS_URL: [];
   MAP_LAT: [];
   MAP_LNG: [];
@@ -208,7 +251,19 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
     const {page} = get();
     set({page: useLongRentStore.getState().page});
   },
-  setParameters: (id: number, title: string, pictures: string[], picturesMass: string[]) => set({ selectedProductId: id, selectedProductTitle: title, selectedProductPictures: pictures, selectedProductPicturesMass: picturesMass/*.map((picture) => 'https://hahahome.live/' + picture)*/}),
+  setParameters: (
+    id: number,
+    title: string,
+    pictures: string[],
+    picturesMass: string[],
+  ) =>
+    set({
+      selectedProductId: id,
+      selectedProductTitle: title,
+      selectedProductPictures: pictures,
+      selectedProductPicturesMass:
+        picturesMass /*.map((picture) => 'https://hahahome.live/' + picture)*/,
+    }),
 }));
 
 window.store = useLongRentStore;
