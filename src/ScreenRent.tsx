@@ -47,7 +47,7 @@ export const ScreenRent = () => {
             style={styles.scrollView}
             ref={scrollView}
             horizontal={false}
-            pagingEnabled={true}
+            /*pagingEnabled={true}*/
             onMomentumScrollEnd={event => {
               // scroll animation ended
               console.log(event.nativeEvent.contentOffset.x + ' x');
@@ -56,7 +56,7 @@ export const ScreenRent = () => {
               console.log(windowHeight + ' Dimensions');
 
               const updatePageY1 = event.nativeEvent.contentOffset.y / 100;
-              const updatePageY95 = updatePageY1 * 95;
+              const updatePageY95 = updatePageY1 * 0.95;
               console.log(updatePageY95 + ' updatePageY95');
 
               if (event.nativeEvent.contentOffset.y > windowHeight * 2) {
@@ -89,8 +89,8 @@ export const ScreenRent = () => {
                     handleNavigate(
                       room?.id,
                       room?.title,
-                      room?.prop.GALLERY?.links[0].value,
-                      room?.prop.GALLERY?.links,
+                      room?.prop?.GALLERY?.links[0].value,
+                      room?.prop?.GALLERY?.links,
                     )
                   }>
                   <View key={room?.id} style={styles.card}>
@@ -102,14 +102,14 @@ export const ScreenRent = () => {
                       source={{
                         uri:
                           'https://hahahome.live/' +
-                          room.prop.GALLERY?.links[0].value,
+                          room.prop?.GALLERY?.links[0]?.value,
                       }}
                     />
 
                     <Text style={styles.cardTextBlack}>{room?.title}</Text>
-                    <Text>{room.prop.CITY_AREA?.links[0].value}</Text>
+                    <Text>{room.prop?.CITY_AREA?.links[0].value}</Text>
                     <Text style={styles.cardTextBlack}>
-                      {room.prop.PRICE?.links[0].value}
+                      {room.prop?.PRICE?.links[0].value}
                     </Text>
                     {/*<Button
                       title="Go to Card Screen"
