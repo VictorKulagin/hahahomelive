@@ -44,7 +44,7 @@ export const CardScreenRent = () => {
               fontSize: 28,
               color: '#000000',
             }}>{`${selectedProductTitle}`}</Text>
-          <Text>{`${selectedProductPrice}`}</Text>
+          <Text>{`${selectedProductPrice}` }</Text>
         </View>
 
         <View style={{flex: 1}}>

@@ -95,8 +95,6 @@ export const ScreenRent = () => {
                     )
                   }>
                   <View key={room?.id} style={styles.card}>
-
-
                     <Text>{/*room?.create_date*/}</Text>
                     <Image
                       style={styles.tinyLogo}

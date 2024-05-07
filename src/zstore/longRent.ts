@@ -240,7 +240,7 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
   selectedProductTitle: null,
   selectedProductPictures: [],
   selectedProductPicturesMass: [],
-  selectedProductPrice: null,
+  selectedProductPrice:  null,
   fetchRooms: async (newPage: number) => {
     const response = await fetch(
       `https://hahahome.live/api/v1/rooms?page=${newPage}`,
