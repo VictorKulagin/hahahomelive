@@ -25,8 +25,8 @@ export const ScreenRent = () => {
   const navigation = useNavigation();
   const setParameters = useLongRentStore(state => state.setParameters);
 
-  const handleNavigate = (id: number, title: string, pictures: string[], picturesMass: string[]) => {
-    setParameters(id, title, pictures, picturesMass/*.map((picture) => 'https://hahahome.live/' + picture)*/);
+  const handleNavigate = (id: number, title: string, pictures: string[], picturesMass: string[], price: string) => {
+    setParameters(id, title, pictures, picturesMass, price);
     // @ts-ignore
     //navigation.navigate('CardScreenRent');
     navigation.navigate('CardScreenRent');
@@ -91,6 +91,7 @@ export const ScreenRent = () => {
                       room?.title,
                       room?.prop?.GALLERY?.links[0].value,
                       room?.prop?.GALLERY?.links,
+                      room?.prop?.PRICE?.links[0].value,
                     )
                   }>
                   <View key={room?.id} style={styles.card}>

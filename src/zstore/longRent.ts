@@ -223,6 +223,7 @@ export interface LongRentState {
   selectedProductTitle: string;
   selectedProductPictures: string[];
   selectedProductPicturesMass: string[];
+  selectedProductPrice: string;
   parameters: object;
   updatePage: (page: number) => void;
   fetchRooms: () => void;
@@ -239,6 +240,7 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
   selectedProductTitle: null,
   selectedProductPictures: [],
   selectedProductPicturesMass: [],
+  selectedProductPrice: null,
   fetchRooms: async (newPage: number) => {
     const response = await fetch(
       `https://hahahome.live/api/v1/rooms?page=${newPage}`,
@@ -256,13 +258,14 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
     title: string,
     pictures: string[],
     picturesMass: string[],
+    price: string,
   ) =>
     set({
       selectedProductId: id,
       selectedProductTitle: title,
       selectedProductPictures: pictures,
-      selectedProductPicturesMass:
-        picturesMass /*.map((picture) => 'https://hahahome.live/' + picture)*/,
+      selectedProductPicturesMass: picturesMass,
+      selectedProductPrice: price,
     }),
 }));
 

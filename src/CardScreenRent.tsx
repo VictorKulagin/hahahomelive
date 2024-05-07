@@ -27,19 +27,24 @@ export const CardScreenRent = () => {
     state => state.selectedProductPicturesMass,
   );
 
+  const selectedProductPrice = useLongRentStore(
+    state => state.selectedProductPrice,
+  );
+
   const {height, width} = Dimensions.get('window');
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [activeIndex, setActiveIndex] = React.useState(0);
-  console.log(selectedProductPicturesMass[activeIndex]);
+ /* console.log(selectedProductPicturesMass[activeIndex]);*/
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View>
-          <Text>CardScreenRent</Text>
-
-          <Text>{`Product ID: ${selectedProductId}`}</Text>
-          <Text>{`Product Name: ${selectedProductTitle}`}</Text>
-          <Text>{`Product Name: ${selectedProductPictures}`}</Text>
+          <Text
+            style={{
+              fontSize: 28,
+              color: '#000000',
+            }}>{`${selectedProductTitle}`}</Text>
+          <Text>{`${selectedProductPrice}`}</Text>
         </View>
 
         <View style={{flex: 1}}>
