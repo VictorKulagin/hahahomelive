@@ -66,6 +66,10 @@ yarn-error.log
 /coverage
 /src/redux/
 /src/api/
+/ios/
+/android/
+/__tests__
+/.bundle
 ios/hahahomelive/PrivacyInfo.xcprivacy
 ReactotronConfig.js
 

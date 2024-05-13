@@ -31,10 +31,38 @@ export const CardScreenRent = () => {
     state => state.selectedProductPrice,
   );
 
+  const selectedProductCurrency = useLongRentStore(
+    state => state.selectedProductCurrency,
+  );
+
+  const selectedProductCity = useLongRentStore(
+    state => state.selectedProductCity,
+  );
+
+  const selectedProductCityArea = useLongRentStore(
+    state => state.selectedProductCityArea,
+  );
+
+  const selectedProductRooms = useLongRentStore(
+    state => state.selectedProductRooms,
+  );
+
+  const selectedProductFloor = useLongRentStore(
+    state => state.selectedProductFloor,
+  );
+
+  const selectedProductAnons = useLongRentStore(
+    state => state.selectedProductAnons,
+  );
+
+  const selectedProductSeries = useLongRentStore(
+    state => state.selectedProductSeries,
+  );
+
   const {height, width} = Dimensions.get('window');
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [activeIndex, setActiveIndex] = React.useState(0);
- /* console.log(selectedProductPicturesMass[activeIndex]);*/
+  /* console.log(selectedProductPicturesMass[activeIndex]);*/
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -44,7 +72,14 @@ export const CardScreenRent = () => {
               fontSize: 28,
               color: '#000000',
             }}>{`${selectedProductTitle}`}</Text>
-          <Text>{`${selectedProductPrice}` }</Text>
+          <Text>{`${selectedProductCity} , ${selectedProductCityArea}`}</Text>
+          <Text
+            style={{
+              fontSize: 28,
+              color: '#274abb',
+            }}>{`${selectedProductPrice} ${
+            selectedProductCurrency === 'Сомы' ? 'KGS' : selectedProductCurrency
+          }`}</Text>
         </View>
 
         <View style={{flex: 1}}>
@@ -133,12 +168,40 @@ export const CardScreenRent = () => {
               }}
             />
           </View>
+          <View style={styles.blockRooms}>
+            <View>
+              <Text>{`${selectedProductRooms}`}</Text>
+              <Text>{'Квартира'}</Text>
+            </View>
+            <View>
+              <Text>{`${selectedProductFloor}`}</Text>
+              <Text>{'Комната'}</Text>
+            </View>
+          </View>
           <View>
-            <Text>
-              {
-                'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,'
-              }
-            </Text>
+            <Text>{'Описание'}</Text>
+            <Text>{`${selectedProductAnons}`}</Text>
+          </View>
+          <View>
+            <Text>{'Общая информация'}</Text>
+            <View style={styles.blockGeneralInformation}>
+              <View style={styles.blockGeneralInformationEach}>
+                <Text style={styles.optionsHome}>{'Серия дома'}</Text>
+                <Text>{`${selectedProductSeries}`}</Text>
+              </View>
+              <View style={styles.blockGeneralInformationEach}>
+                <Text style={styles.optionsHome}>{'Продавец'}</Text>
+                <Text>{'Физическое лицо'}</Text>
+              </View>
+              <View style={styles.blockGeneralInformationEach}>
+                <Text style={styles.optionsHome}>{'Тип аренды'}</Text>
+                <Text>{'Длительно'}</Text>
+              </View>
+              <View style={styles.blockGeneralInformationEach}>
+                <Text style={styles.optionsHome}>{'Можно с животными'}</Text>
+                <Text>{'Нет'}</Text>
+              </View>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -154,5 +217,35 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
     justifyContent: 'center',
+  },
+  blockRooms: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: '#707070',
+    width: '100%',
+    display: 'block',
+    listStyle: 'none',
+    margin: 0,
+    paddingBottom: 24,
+    paddingTop: 0,
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
+  blockGeneralInformation: {
+    flex: 1,
+    flexDirection: 'column',
+    /*justifyContent: 'space-between', // You can use 'flex-start', 'center', 'flex-end', 'space-between', 'space-around', or 'space-evenly'
+    flexWrap: 'wrap',
+    alignContent: 'flex-start',*/
+  },
+  blockGeneralInformationEach: {
+    flexDirection: 'row',
+  },
+
+  optionsHome: {
+    width: '50%',
+    textAlign: 'left',
+    paddingRight: 50,
+    /*width: '100%',*/
   },
 });

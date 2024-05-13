@@ -25,8 +25,34 @@ export const ScreenRent = () => {
   const navigation = useNavigation();
   const setParameters = useLongRentStore(state => state.setParameters);
 
-  const handleNavigate = (id: number, title: string, pictures: string[], picturesMass: string[], price: string) => {
-    setParameters(id, title, pictures, picturesMass, price);
+  const handleNavigate = (
+    id: number,
+    title: string,
+    pictures: string[],
+    picturesMass: string[],
+    price: string,
+    currency: string,
+    city: string,
+    cityArea: string,
+    rooms: string,
+    floor: string,
+    anons: string,
+    series: string,
+  ) => {
+    setParameters(
+      id,
+      title,
+      pictures,
+      picturesMass,
+      price,
+      currency,
+      city,
+      cityArea,
+      rooms,
+      floor,
+      anons,
+      series,
+    );
     // @ts-ignore
     //navigation.navigate('CardScreenRent');
     navigation.navigate('CardScreenRent');
@@ -92,6 +118,13 @@ export const ScreenRent = () => {
                       room?.prop?.GALLERY?.links[0].value,
                       room?.prop?.GALLERY?.links,
                       room?.prop?.PRICE?.links[0].value,
+                      room?.prop?.CURRENCY?.links[0].value,
+                      room?.prop?.CITY?.links[0].value,
+                      room?.prop?.CITY_AREA?.links[0].value,
+                      room?.prop?.ROOMS?.links[0].value,
+                      room?.prop?.FLOOR?.links[0].value,
+                      room?.anons,
+                      room?.prop?.SERIES?.links[0].value,
                     )
                   }>
                   <View key={room?.id} style={styles.card}>

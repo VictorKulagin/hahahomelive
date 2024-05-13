@@ -7,6 +7,30 @@ import {create} from 'zustand';
 //import {devtools} from 'zustand/middleware';
 //import * as zukeeper from 'zukeeper';
 
+interface cityArea {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+interface Currency {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
 interface RentType {
   block_item_id: number;
   id: number;
@@ -21,6 +45,44 @@ interface RentType {
 }
 
 interface City {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+interface Rooms {
+  id: number;
+  section_id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface Floor {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface Series {
   block_item_id: number;
   id: number;
   title: string;
@@ -55,10 +117,10 @@ interface Prop {
   CITY: City[];
   SELLER: [];
   PRICE: [];
-  CURRENCY: [];
+  CURRENCY: Currency[];
   SELLER_PHONE: [];
-  ROOMS: [];
-  FLOOR: [];
+  ROOMS: Rooms[];
+  FLOOR: Floor[];
   TOTAL_FLOOR: [];
   REPAIR: [];
   TERMS_ANIMALS: [];
@@ -68,6 +130,8 @@ interface Prop {
   MAP_LNG: [];
   USER_ID: [];
   USER_NAME: [];
+  CITY_AREA: cityArea[];
+  SERIES: Series[];
 }
 interface Rooms {
   id: number;
@@ -80,140 +144,6 @@ interface Rooms {
   update_user: any;
   update_date: string;
   prop: Prop[];
-  /*prop: {
-    RENT_TYPE: {
-      block_item_id: number;
-      id: number;
-      title: string;
-      code: string;
-      links: {
-        id: number;
-        value: string;
-      };
-    };
-    CITY: {
-      block_item_id: number;
-      id: number;
-      title: string;
-      code: string;
-      links: {
-        id: number;
-        value: string;
-      };
-    };
-    SELLER: {
-      block_item_id: number;
-      id: number;
-      title: string;
-      code: string;
-      links: {
-        id: number;
-        value: string;
-      };
-    };
-    PRICE: {
-      block_item_id: number;
-      id: number;
-      title: string;
-      code: string;
-      links: {
-        id: number;
-        value: string;
-      };
-    };
-    CURRENCY: {
-      block_item_id: number;
-      id: number;
-      title: string;
-      code: string;
-      links: {
-        id: number;
-        value: string;
-      };
-    };
-    SELLER_PHONE: {
-      block_item_id: number;
-      id: number;
-      title: string;
-      code: string;
-      links: {
-        id: number;
-        value: string;
-      };
-    };
-    ROOMS: {
-      block_item_id: number;
-      id: number;
-      title: string;
-      code: string;
-      links: {
-        id: number;
-        value: string;
-      };
-    };
-    FLOOR: {
-      block_item_id: number;
-      id: number;
-      title: string;
-      code: string;
-      links: {
-        id: number;
-        value: string;
-      };
-    };
-    TOTAL_FLOOR: {
-      block_item_id: number;
-      id: number;
-      title: string;
-      code: string;
-      links: {
-        id: number;
-        value: string;
-      };
-    };
-    REPAIR: {
-      block_item_id: number;
-      id: number;
-      title: string;
-      code: string;
-      links: {
-        id: number;
-        value: string;
-      };
-    };
-    TERMS_ANIMALS: {
-      block_item_id: number;
-      id: number;
-      title: string;
-      code: string;
-      links: {
-        id: number;
-        value: string;
-      };
-    };
-    GALLERY: {
-      block_item_id: number;
-      id: number;
-      title: string;
-      code: string;
-      links: {
-        id: number;
-        value: string;
-        path: string;
-        file_name: string;
-      };
-    };
-    CITY_AREA: {
-      block_item_id: number;
-      id: number;
-      title: string;
-      code: string;
-      links: {
-        id: number;
-        value: string;
-      };
-    };
-  };*/
 }
 
 export interface LongRentState {
@@ -224,6 +154,13 @@ export interface LongRentState {
   selectedProductPictures: string[];
   selectedProductPicturesMass: string[];
   selectedProductPrice: string;
+  selectedProductCurrency: string;
+  selectedProductCity: string;
+  selectedProductCityArea: string;
+  selectedProductRooms: string;
+  selectedProductFloor: string;
+  selectedProductAnons: string;
+  selectedProductSeries: string;
   parameters: object;
   updatePage: (page: number) => void;
   fetchRooms: () => void;
@@ -240,7 +177,14 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
   selectedProductTitle: null,
   selectedProductPictures: [],
   selectedProductPicturesMass: [],
-  selectedProductPrice:  null,
+  selectedProductPrice: null,
+  selectedProductCurrency: null,
+  selectedProductCity: null,
+  selectedProductCityArea: null,
+  selectedProductRooms: null,
+  selectedProductFloor: null,
+  selectedProductAnons: null,
+  selectedProductSeries: null,
   fetchRooms: async (newPage: number) => {
     const response = await fetch(
       `https://hahahome.live/api/v1/rooms?page=${newPage}`,
@@ -259,6 +203,13 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
     pictures: string[],
     picturesMass: string[],
     price: string,
+    currency: string,
+    city: string,
+    cityArea: string,
+    rooms: string,
+    floor: string,
+    anons: string,
+    series: string,
   ) =>
     set({
       selectedProductId: id,
@@ -266,6 +217,13 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
       selectedProductPictures: pictures,
       selectedProductPicturesMass: picturesMass,
       selectedProductPrice: price,
+      selectedProductCurrency: currency,
+      selectedProductCity: city,
+      selectedProductCityArea: cityArea,
+      selectedProductRooms: rooms,
+      selectedProductFloor: floor,
+      selectedProductAnons: anons,
+      selectedProductSeries: series,
     }),
 }));
 
