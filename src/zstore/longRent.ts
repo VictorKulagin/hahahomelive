@@ -95,6 +95,19 @@ interface Series {
   };
 }
 
+interface Repair {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
 interface GalleryLinks {
   id: number;
   value: string;
@@ -122,7 +135,6 @@ interface Prop {
   ROOMS: Rooms[];
   FLOOR: Floor[];
   TOTAL_FLOOR: [];
-  REPAIR: [];
   TERMS_ANIMALS: [];
   GALLERY: Gallery[];
   ADS_URL: [];
@@ -132,6 +144,7 @@ interface Prop {
   USER_NAME: [];
   CITY_AREA: cityArea[];
   SERIES: Series[];
+  REPAIR: Repair[];
 }
 interface Rooms {
   id: number;
@@ -161,6 +174,9 @@ export interface LongRentState {
   selectedProductFloor: string;
   selectedProductAnons: string;
   selectedProductSeries: string;
+  selectedProductSeriesName: string;
+  selectedProductRepair: string;
+  selectedProductRepairName: string;
   parameters: object;
   updatePage: (page: number) => void;
   fetchRooms: () => void;
@@ -185,6 +201,9 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
   selectedProductFloor: null,
   selectedProductAnons: null,
   selectedProductSeries: null,
+  selectedProductSeriesName: null,
+  selectedProductRepair: null,
+  selectedProductRepairName: null,
   fetchRooms: async (newPage: number) => {
     const response = await fetch(
       `https://hahahome.live/api/v1/rooms?page=${newPage}`,
@@ -210,6 +229,9 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
     floor: string,
     anons: string,
     series: string,
+    seriesName: string,
+    repair: string,
+    repairName: string,
   ) =>
     set({
       selectedProductId: id,
@@ -224,6 +246,9 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
       selectedProductFloor: floor,
       selectedProductAnons: anons,
       selectedProductSeries: series,
+      selectedProductSeriesName: seriesName,
+      selectedProductRepair: repair,
+      selectedProductRepairName: repairName,
     }),
 }));
 

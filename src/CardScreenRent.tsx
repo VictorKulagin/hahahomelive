@@ -59,6 +59,18 @@ export const CardScreenRent = () => {
     state => state.selectedProductSeries,
   );
 
+  const selectedProductSeriesName = useLongRentStore(
+    state => state.selectedProductSeriesName,
+  );
+
+  const selectedProductRepair = useLongRentStore(
+    state => state.selectedProductRepair,
+  );
+
+  const selectedProductRepairName = useLongRentStore(
+    state => state.selectedProductRepairName,
+  );
+
   const {height, width} = Dimensions.get('window');
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -185,14 +197,28 @@ export const CardScreenRent = () => {
           <View>
             <Text>{'Общая информация'}</Text>
             <View style={styles.blockGeneralInformation}>
-              <View style={styles.blockGeneralInformationEach}>
-                <Text style={styles.optionsHome}>{'Серия дома'}</Text>
-                <Text>{`${selectedProductSeries}`}</Text>
-              </View>
-              <View style={styles.blockGeneralInformationEach}>
-                <Text style={styles.optionsHome}>{'Продавец'}</Text>
-                <Text>{'Физическое лицо'}</Text>
-              </View>
+              {selectedProductSeries !== undefined && (
+                <View style={styles.blockGeneralInformationEach}>
+                  <Text
+                    style={
+                      styles.optionsHome
+                    }>{`${selectedProductSeriesName}`}</Text>
+                  {selectedProductSeries !== null && (
+                    <Text>{`${selectedProductSeries}`}</Text>
+                  )}
+                </View>
+              )}
+              {selectedProductRepair !== undefined && (
+                <View style={styles.blockGeneralInformationEach}>
+                  <Text
+                    style={
+                      styles.optionsHome
+                    }>{`${selectedProductRepairName}`}</Text>
+                  {selectedProductSeries !== null && (
+                    <Text>{`${selectedProductRepair}`}</Text>
+                  )}
+                </View>
+              )}
               <View style={styles.blockGeneralInformationEach}>
                 <Text style={styles.optionsHome}>{'Тип аренды'}</Text>
                 <Text>{'Длительно'}</Text>

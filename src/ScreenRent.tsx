@@ -38,6 +38,9 @@ export const ScreenRent = () => {
     floor: string,
     anons: string,
     series: string,
+    seriesName: string,
+    repair: string,
+    repairName: string,
   ) => {
     setParameters(
       id,
@@ -52,6 +55,9 @@ export const ScreenRent = () => {
       floor,
       anons,
       series,
+      seriesName,
+      repair,
+      repairName,
     );
     // @ts-ignore
     //navigation.navigate('CardScreenRent');
@@ -125,6 +131,9 @@ export const ScreenRent = () => {
                       room?.prop?.FLOOR?.links[0].value,
                       room?.anons,
                       room?.prop?.SERIES?.links[0].value,
+                      room?.prop?.SERIES?.title,
+                      room?.prop?.REPAIR?.links[0].value,
+                      room?.prop?.REPAIR?.title,
                     )
                   }>
                   <View key={room?.id} style={styles.card}>
