@@ -41,7 +41,18 @@ export const ScreenRent = () => {
     seriesName: string,
     repair: string,
     repairName: string,
+    rentType: string,
+    rentTypeName: string,
+    TermsAnimals: string,
+    TermsAnimalsName: string,
+    TermsChildren: string,
+    TermsChildrenName: string,
+    TermsExtra: string,
+    TermsExtraName: string,
+    BuildingYear: string,
+    BuildingYearName: string,
   ) => {
+    // @ts-ignore
     setParameters(
       id,
       title,
@@ -58,6 +69,16 @@ export const ScreenRent = () => {
       seriesName,
       repair,
       repairName,
+      rentType,
+      rentTypeName,
+      TermsAnimals,
+      TermsAnimalsName,
+      TermsChildren,
+      TermsChildrenName,
+      TermsExtra,
+      TermsExtraName,
+      BuildingYear,
+      BuildingYearName,
     );
     // @ts-ignore
     //navigation.navigate('CardScreenRent');
@@ -134,6 +155,16 @@ export const ScreenRent = () => {
                       room?.prop?.SERIES?.title,
                       room?.prop?.REPAIR?.links[0].value,
                       room?.prop?.REPAIR?.title,
+                      room?.prop?.RENT_TYPE?.links[0].value,
+                      room?.prop?.RENT_TYPE?.title,
+                      room?.prop?.TERMS_ANIMALS?.links[0].value,
+                      room?.prop?.TERMS_ANIMALS?.title,
+                      room?.prop?.TERMS_CHILDREN?.links[0].value,
+                      room?.prop?.TERMS_CHILDREN?.title,
+                      room?.prop?.TERMS_EXTRA?.links[0].value,
+                      room?.prop?.TERMS_EXTRA?.title,
+                      room?.prop?.BUILDING_YEAR?.links[0].value,
+                      room?.prop?.BUILDING_YEAR?.title,
                     )
                   }>
                   <View key={room?.id} style={styles.card}>

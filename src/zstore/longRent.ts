@@ -108,11 +108,62 @@ interface Repair {
   };
 }
 
+interface TermsAnimals {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface TermsChildren {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
 interface GalleryLinks {
   id: number;
   value: string;
   path: string;
   file_name: string;
+}
+
+interface TermsExtra {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface BuildingYear {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
 }
 interface Gallery {
   block_item_id: number;
@@ -135,7 +186,10 @@ interface Prop {
   ROOMS: Rooms[];
   FLOOR: Floor[];
   TOTAL_FLOOR: [];
-  TERMS_ANIMALS: [];
+  TERMS_ANIMALS: TermsAnimals[];
+  TERMS_CHILDREN: TermsChildren[];
+  TERMS_EXTRA: TermsExtra[];
+  BUILDING_YEAR: BuildingYear[];
   GALLERY: Gallery[];
   ADS_URL: [];
   MAP_LAT: [];
@@ -177,6 +231,16 @@ export interface LongRentState {
   selectedProductSeriesName: string;
   selectedProductRepair: string;
   selectedProductRepairName: string;
+  selectedProductRentType: string;
+  selectedProductRentTypeName: string;
+  selectedProductTermsAnimals: string;
+  selectedProductTermsAnimalsName: string;
+  selectedProductTermsChildren: string;
+  selectedProductTermsChildrenName: string;
+  selectedProductTermsExtra: string;
+  selectedProductTermsExtraName: string;
+  selectedProductBuildingYear: string;
+  selectedProductBuildingYearName: string;
   parameters: object;
   updatePage: (page: number) => void;
   fetchRooms: () => void;
@@ -204,6 +268,16 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
   selectedProductSeriesName: null,
   selectedProductRepair: null,
   selectedProductRepairName: null,
+  selectedProductRentType: null,
+  selectedProductRentTypeName: null,
+  selectedProductTermsAnimals: null,
+  selectedProductTermsAnimalsName: null,
+  selectedProductTermsChildren: null,
+  selectedProductTermsChildrenName: null,
+  selectedProductTermsExtra: null,
+  selectedProductTermsExtraName: null,
+  selectedProductBuildingYear: null,
+  selectedProductBuildingYearName: null,
   fetchRooms: async (newPage: number) => {
     const response = await fetch(
       `https://hahahome.live/api/v1/rooms?page=${newPage}`,
@@ -232,6 +306,16 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
     seriesName: string,
     repair: string,
     repairName: string,
+    rentType: string,
+    rentTypeName: string,
+    TermsAnimals: string,
+    TermsAnimalsName: string,
+    TermsChildren: string,
+    TermsChildrenName: string,
+    TermsExtra: string,
+    TermsExtraName: string,
+    BuildingYear: string,
+    BuildingYearName: string,
   ) =>
     set({
       selectedProductId: id,
@@ -249,6 +333,16 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
       selectedProductSeriesName: seriesName,
       selectedProductRepair: repair,
       selectedProductRepairName: repairName,
+      selectedProductRentType: rentType,
+      selectedProductRentTypeName: rentTypeName,
+      selectedProductTermsAnimals: TermsAnimals,
+      selectedProductTermsAnimalsName: TermsAnimalsName,
+      selectedProductTermsChildren: TermsChildren,
+      selectedProductTermsChildrenName: TermsChildrenName,
+      selectedProductTermsExtra: TermsExtra, //не нужно заменить на HHAP
+      selectedProductTermsExtraName: TermsExtraName,
+      selectedProductBuildingYear: BuildingYear, //не нужно заменить
+      selectedProductBuildingYearName: BuildingYearName,
     }),
 }));
 

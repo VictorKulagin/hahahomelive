@@ -71,6 +71,46 @@ export const CardScreenRent = () => {
     state => state.selectedProductRepairName,
   );
 
+  const selectedProductRentType = useLongRentStore(
+    state => state.selectedProductRentType,
+  );
+
+  const selectedProductRentTypeName = useLongRentStore(
+    state => state.selectedProductRentTypeName,
+  );
+
+  const selectedProductTermsAnimals = useLongRentStore(
+    state => state.selectedProductTermsAnimals,
+  );
+
+  const selectedProductTermsAnimalsName = useLongRentStore(
+    state => state.selectedProductTermsAnimalsName,
+  );
+
+  const selectedProductTermsChildren = useLongRentStore(
+    state => state.selectedProductTermsChildren,
+  );
+
+  const selectedProductTermsChildrenName = useLongRentStore(
+    state => state.selectedProductTermsChildrenName,
+  );
+
+  const selectedProductTermsExtra = useLongRentStore(
+    state => state.selectedProductTermsExtra,
+  );
+
+  const selectedProductTermsExtraName = useLongRentStore(
+    state => state.selectedProductTermsExtraName,
+  );
+
+  const selectedProductBuildingYear = useLongRentStore(
+    state => state.selectedProductBuildingYear,
+  );
+
+  const selectedProductBuildingYearName = useLongRentStore(
+    state => state.selectedProductBuildingYearName,
+  );
+
   const {height, width} = Dimensions.get('window');
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -219,14 +259,61 @@ export const CardScreenRent = () => {
                   )}
                 </View>
               )}
-              <View style={styles.blockGeneralInformationEach}>
-                <Text style={styles.optionsHome}>{'Тип аренды'}</Text>
-                <Text>{'Длительно'}</Text>
-              </View>
-              <View style={styles.blockGeneralInformationEach}>
-                <Text style={styles.optionsHome}>{'Можно с животными'}</Text>
-                <Text>{'Нет'}</Text>
-              </View>
+              {selectedProductTermsAnimals !== undefined && (
+                <View style={styles.blockGeneralInformationEach}>
+                  <Text
+                    style={
+                      styles.optionsHome
+                    }>{`${selectedProductTermsAnimalsName}`}</Text>
+                  {selectedProductTermsAnimals !== null && (
+                    <Text>{`${selectedProductTermsAnimals}`}</Text>
+                  )}
+                </View>
+              )}
+              {selectedProductRentType !== undefined && (
+                <View style={styles.blockGeneralInformationEach}>
+                  <Text
+                    style={
+                      styles.optionsHome
+                    }>{`${selectedProductRentTypeName}`}</Text>
+                  {selectedProductRentType !== null && (
+                    <Text>{`${selectedProductRentType}`}</Text>
+                  )}
+                </View>
+              )}
+              {selectedProductTermsChildren !== undefined && (
+                <View style={styles.blockGeneralInformationEach}>
+                  <Text
+                    style={
+                      styles.optionsHome
+                    }>{`${selectedProductTermsChildrenName}`}</Text>
+                  {selectedProductTermsChildren !== null && (
+                    <Text>{`${selectedProductTermsChildren}`}</Text>
+                  )}
+                </View>
+              )}
+              {selectedProductTermsExtra !== undefined && (
+                <View style={styles.blockGeneralInformationEach}>
+                  <Text
+                    style={
+                      styles.optionsHome
+                    }>{`${selectedProductTermsExtraName}`}</Text>
+                  {selectedProductTermsExtra !== null && (
+                    <Text>{`${selectedProductTermsExtra}`}</Text>
+                  )}
+                </View>
+              )}
+              {selectedProductBuildingYear !== undefined && (
+                <View style={styles.blockGeneralInformationEach}>
+                  <Text
+                    style={
+                      styles.optionsHome
+                    }>{`${selectedProductBuildingYearName}`}</Text>
+                  {selectedProductBuildingYear !== null && (
+                    <Text>{`${selectedProductBuildingYear}`}</Text>
+                  )}
+                </View>
+              )}
             </View>
           </View>
         </View>
