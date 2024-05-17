@@ -33,6 +33,12 @@ export const ScreenRent = () => {
     setIsModalVisible(!isModalVisible);
   };
 
+
+  useEffect(() => {
+    toggleModal(); // Open the modal when the component mounts
+  }, []); // Empty dependency array to run this effect only once on mount
+
+
   const handleNavigate = (
     id: number,
     title: string,
@@ -269,11 +275,22 @@ export const ScreenRent = () => {
           <Text>{city}</Text>
         </View>
         <View style={{alignItems: 'flex-end', width: '50%', padding: 10}}>
-          <Image
-            source={require('./image/icons8-adjust-50.png')}
-            style={{width: 30, height: 30}}
-            tintColor={'#274abb'}
-          />
+          {/* Image that when clicked will open the modal */}
+          <TouchableOpacity onPress={toggleModal}>
+            <Image
+              source={require('./image/icons8-adjust-50.png')}
+              style={{width: 30, height: 30}}
+              tintColor={'#274abb'}
+            />
+          </TouchableOpacity>
+          {/* Modal component */}
+          <Modal visible={isModalVisible} animationType="slide">
+            <View
+              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text>This is a modal</Text>
+              <Button title="Close" onPress={toggleModal} />
+            </View>
+          </Modal>
         </View>
       </View>
     );
