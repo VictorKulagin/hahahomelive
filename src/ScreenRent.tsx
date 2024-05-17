@@ -12,6 +12,8 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableWithoutFeedback,
+  Modal,
+  TouchableOpacity,
 } from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
@@ -24,6 +26,12 @@ export const ScreenRent = () => {
 
   const navigation = useNavigation();
   const setParameters = useLongRentStore(state => state.setParameters);
+
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
 
   const handleNavigate = (
     id: number,
@@ -47,10 +55,24 @@ export const ScreenRent = () => {
     TermsAnimalsName: string,
     TermsChildren: string,
     TermsChildrenName: string,
-    TermsExtra: string,
-    TermsExtraName: string,
-    BuildingYear: string,
-    BuildingYearName: string,
+    FOT: string,
+    FOTName: string,
+    COMM: string,
+    COMMName: string,
+    FURN: string,
+    FURNName: string,
+    HHAP: string,
+    HHAPName: string,
+    AP_IMP: string,
+    AP_IMPName: string,
+    Settlement: string,
+    SettlementName: string,
+    Seller: string,
+    SellerName: string,
+    MAP_LAT: string,
+    MAP_LNG: string,
+    SellerPhone: string,
+    SellerPhoneName: string,
   ) => {
     // @ts-ignore
     setParameters(
@@ -75,10 +97,24 @@ export const ScreenRent = () => {
       TermsAnimalsName,
       TermsChildren,
       TermsChildrenName,
-      TermsExtra,
-      TermsExtraName,
-      BuildingYear,
-      BuildingYearName,
+      FOT,
+      FOTName,
+      COMM,
+      COMMName,
+      FURN,
+      FURNName,
+      HHAP,
+      HHAPName,
+      AP_IMP,
+      AP_IMPName,
+      Settlement,
+      SettlementName,
+      Seller,
+      SellerName,
+      MAP_LAT,
+      MAP_LNG,
+      SellerPhone,
+      SellerPhoneName,
     );
     // @ts-ignore
     //navigation.navigate('CardScreenRent');
@@ -161,10 +197,24 @@ export const ScreenRent = () => {
                       room?.prop?.TERMS_ANIMALS?.title,
                       room?.prop?.TERMS_CHILDREN?.links[0].value,
                       room?.prop?.TERMS_CHILDREN?.title,
-                      room?.prop?.TERMS_EXTRA?.links[0].value,
-                      room?.prop?.TERMS_EXTRA?.title,
-                      room?.prop?.BUILDING_YEAR?.links[0].value,
-                      room?.prop?.BUILDING_YEAR?.title,
+                      room?.prop?.FOT?.links[0].value,
+                      room?.prop?.FOT?.title,
+                      room?.prop?.COMM?.value,
+                      room?.prop?.COMM?.title,
+                      room?.prop?.FURN?.value,
+                      room?.prop?.FURN?.title,
+                      room?.prop?.HHAP?.value,
+                      room?.prop?.HHAP?.title,
+                      room?.prop?.AP_IMP?.value,
+                      room?.prop?.AP_IMP?.title,
+                      room?.prop?.SETTLEMENT?.value,
+                      room?.prop?.SETTLEMENT?.title,
+                      room?.prop?.SELLER?.value,
+                      room?.prop?.SELLER?.title,
+                      room?.prop?.MAP_LAT?.value,
+                      room?.prop?.MAP_LNG?.value,
+                      room?.prop?.SELLER_PHONE?.value,
+                      room?.prop?.SELLER_PHONE?.title,
                     )
                   }>
                   <View key={room?.id} style={styles.card}>
@@ -213,6 +263,8 @@ export const ScreenRent = () => {
             tintColor={'#274abb'}
           />
         </View>
+        {/* Image that when clicked will open the modal */}
+
         <View style={{alignItems: 'flex-start', width: '40%', padding: 10}}>
           <Text>{city}</Text>
         </View>

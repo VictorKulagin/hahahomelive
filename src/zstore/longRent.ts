@@ -140,7 +140,124 @@ interface GalleryLinks {
   file_name: string;
 }
 
-interface TermsExtra {
+interface FOT {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface COMM {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface FURN {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface HHAP {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface AP_IMP {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface Settlement {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface Seller {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface MAP_LAT {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface MAP_LNG {
+  block_item_id: number;
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  multiple: boolean;
+  links: {
+    id: number;
+    value: string;
+  };
+}
+
+interface SellerPhone {
   block_item_id: number;
   id: number;
   title: string;
@@ -165,6 +282,7 @@ interface BuildingYear {
     value: string;
   };
 }
+
 interface Gallery {
   block_item_id: number;
   id: number;
@@ -188,7 +306,16 @@ interface Prop {
   TOTAL_FLOOR: [];
   TERMS_ANIMALS: TermsAnimals[];
   TERMS_CHILDREN: TermsChildren[];
-  TERMS_EXTRA: TermsExtra[];
+  FOT: FOT[];
+  COMM: COMM[];
+  FURN: FURN[];
+  HHAP: HHAP[];
+  AP_IMP: AP_IMP[];
+  SETTLEMENT: Settlement[];
+  SELLER: Seller[];
+  MAP_LAT: MAP_LAT[];
+  MAP_LNG: MAP_LNG[];
+  SELLER_PHONE: SellerPhone[];
   BUILDING_YEAR: BuildingYear[];
   GALLERY: Gallery[];
   ADS_URL: [];
@@ -237,16 +364,29 @@ export interface LongRentState {
   selectedProductTermsAnimalsName: string;
   selectedProductTermsChildren: string;
   selectedProductTermsChildrenName: string;
-  selectedProductTermsExtra: string;
-  selectedProductTermsExtraName: string;
-  selectedProductBuildingYear: string;
-  selectedProductBuildingYearName: string;
+  selectedProductFOT: string;
+  selectedProductFOTName: string;
+  selectedProductCOMM: string;
+  selectedProductCOMMName: string;
+  selectedProductFURN: string;
+  selectedProductFURNName: string;
+  selectedProductHHAP: string;
+  selectedProductHHAPName: string;
+  selectedProductAP_IMP: string;
+  selectedProductAP_IMPName: string;
+  selectedProductSettlement: string;
+  selectedProductSettlementName: string;
+  selectedProductSeller: string;
+  selectedProductSellerName: string;
+  selectedProductMAP_LAT: string;
+  selectedProductMAP_LNG: string;
+  selectedProductSellerPhone: string;
+  selectedProductSellerPhoneName: string;
   parameters: object;
   updatePage: (page: number) => void;
   fetchRooms: () => void;
   setParameters: (params: object) => void;
 }
-debugger;
 
 //https://hahahome.live/api/v1/rooms?page=1
 
@@ -274,10 +414,24 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
   selectedProductTermsAnimalsName: null,
   selectedProductTermsChildren: null,
   selectedProductTermsChildrenName: null,
-  selectedProductTermsExtra: null,
-  selectedProductTermsExtraName: null,
-  selectedProductBuildingYear: null,
-  selectedProductBuildingYearName: null,
+  selectedProductFOT: null,
+  selectedProductFOTName: null,
+  selectedProductCOMM: null,
+  selectedProductCOMMName: null,
+  selectedProductFURN: null,
+  selectedProductFURNName: null,
+  selectedProductHHAP: null,
+  selectedProductHHAPName: null,
+  selectedProductAP_IMP: null,
+  selectedProductAP_IMPName: null,
+  selectedProductSettlement: null,
+  selectedProductSettlementName: null,
+  selectedProductSeller: null,
+  selectedProductSellerName: null,
+  selectedProductMAP_LAT: null,
+  selectedProductMAP_LNG: null,
+  selectedProductSellerPhone: null,
+  selectedProductSellerPhoneName: null,
   fetchRooms: async (newPage: number) => {
     const response = await fetch(
       `https://hahahome.live/api/v1/rooms?page=${newPage}`,
@@ -312,10 +466,24 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
     TermsAnimalsName: string,
     TermsChildren: string,
     TermsChildrenName: string,
-    TermsExtra: string,
-    TermsExtraName: string,
-    BuildingYear: string,
-    BuildingYearName: string,
+    FOT: string,
+    FOTName: string,
+    COMM: string,
+    COMMName: string,
+    FURN: string,
+    FURNName: string,
+    HHAP: string,
+    HHAPName: string,
+    AP_IMP: string,
+    AP_IMPName: string,
+    Settlement: string,
+    SettlementName: string,
+    Seller: string,
+    SellerName: string,
+    MAP_LAT: string,
+    MAP_LNG: string,
+    SellerPhone: string,
+    SellerPhoneName: string,
   ) =>
     set({
       selectedProductId: id,
@@ -339,10 +507,24 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
       selectedProductTermsAnimalsName: TermsAnimalsName,
       selectedProductTermsChildren: TermsChildren,
       selectedProductTermsChildrenName: TermsChildrenName,
-      selectedProductTermsExtra: TermsExtra, //не нужно заменить на HHAP
-      selectedProductTermsExtraName: TermsExtraName,
-      selectedProductBuildingYear: BuildingYear, //не нужно заменить
-      selectedProductBuildingYearName: BuildingYearName,
+      selectedProductFOT: FOT,
+      selectedProductFOTName: FOTName,
+      selectedProductCOMM: COMM, //не нужно заменить
+      selectedProductCOMMName: COMMName,
+      selectedProductFURN: FURN,
+      selectedProductFURNName: FURNName,
+      selectedProductHHAP: HHAP,
+      selectedProductHHAPName: HHAPName,
+      selectedProductAP_IMP: AP_IMP,
+      selectedProductAP_IMPName: AP_IMPName,
+      selectedProductSettlement: Settlement,
+      selectedProductSettlementName: SettlementName,
+      selectedProductSeller: Seller,
+      selectedProductSellerName: SellerName,
+      selectedProductMAP_LAT: MAP_LAT,
+      selectedProductMAP_LNG: MAP_LNG,
+      selectedProductSellerPhone: SellerPhone,
+      selectedProductSellerPhoneName: SellerPhoneName,
     }),
 }));
 

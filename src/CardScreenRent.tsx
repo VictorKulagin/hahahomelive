@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import {useLongRentStore} from './zstore/longRent.ts';
+import {Button, Linking} from 'react-native';
 
 import {
   Text,
@@ -95,26 +96,92 @@ export const CardScreenRent = () => {
     state => state.selectedProductTermsChildrenName,
   );
 
-  const selectedProductTermsExtra = useLongRentStore(
-    state => state.selectedProductTermsExtra,
+  const selectedProductFOT = useLongRentStore(
+    state => state.selectedProductFOT,
   );
 
-  const selectedProductTermsExtraName = useLongRentStore(
-    state => state.selectedProductTermsExtraName,
+  const selectedProductFOTName = useLongRentStore(
+    state => state.selectedProductFOTName,
   );
 
-  const selectedProductBuildingYear = useLongRentStore(
-    state => state.selectedProductBuildingYear,
+  const selectedProductCOMM = useLongRentStore(
+    state => state.selectedProductCOMM,
   );
 
-  const selectedProductBuildingYearName = useLongRentStore(
-    state => state.selectedProductBuildingYearName,
+  const selectedProductCOMMName = useLongRentStore(
+    state => state.selectedProductCOMMName,
+  );
+
+  const selectedProductFURN = useLongRentStore(
+    state => state.selectedProductFURN,
+  );
+
+  const selectedProductFURNName = useLongRentStore(
+    state => state.selectedProductFURNName,
+  );
+
+  const selectedProductHHAP = useLongRentStore(
+    state => state.selectedProductHHAP,
+  );
+
+  const selectedProductHHAPName = useLongRentStore(
+    state => state.selectedProductHHAPName,
+  );
+
+  const selectedProductAP_IMP = useLongRentStore(
+    state => state.selectedProductAP_IMP,
+  );
+
+  const selectedProductAP_IMPName = useLongRentStore(
+    state => state.selectedProductAP_IMPName,
+  );
+
+  const selectedProductSettlement = useLongRentStore(
+    state => state.selectedProductSettlement,
+  );
+
+  const selectedProductSettlementName = useLongRentStore(
+    state => state.selectedProductSettlementName,
+  );
+
+  const selectedProductSeller = useLongRentStore(
+    state => state.selectedProductSeller,
+  );
+
+  const selectedProductSellerName = useLongRentStore(
+    state => state.selectedProductSellerName,
+  );
+
+  const selectedProductMAP_LAT = useLongRentStore(
+    state => state.selectedProductMAP_LAT,
+  );
+
+  const selectedProductMAP_LNG = useLongRentStore(
+    state => state.selectedProductMAP_LNG,
+  );
+
+  const selectedProductSellerPhone = useLongRentStore(
+    state => state.selectedProductSellerPhone,
+  );
+
+  const selectedProductSellerPhoneName = useLongRentStore(
+    state => state.selectedProductSellerPhoneName,
   );
 
   const {height, width} = Dimensions.get('window');
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [activeIndex, setActiveIndex] = React.useState(0);
   /* console.log(selectedProductPicturesMass[activeIndex]);*/
+  const openYandexMapsWithMarker = () => {
+    const latitude = selectedProductMAP_LAT; // Широта
+    const longitude = selectedProductMAP_LNG; // Долгота
+    const zoom = 10; // Уровень масштабирования
+
+    const mapUrl = `https://yandex.ru/maps/?pt=${longitude},${latitude}&z=${zoom}`;
+
+    Linking.openURL(mapUrl);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -237,6 +304,83 @@ export const CardScreenRent = () => {
           <View>
             <Text>{'Общая информация'}</Text>
             <View style={styles.blockGeneralInformation}>
+              {selectedProductFOT !== undefined && (
+                <View style={styles.blockGeneralInformationEach}>
+                  <Text
+                    style={
+                      styles.optionsHome
+                    }>{`${selectedProductFOTName}`}</Text>
+                  {selectedProductFOT !== null && (
+                    <Text>{`${selectedProductFOT}`}</Text>
+                  )}
+                </View>
+              )}
+              {selectedProductCOMM !== undefined && (
+                <View style={styles.blockGeneralInformationEach}>
+                  <Text
+                    style={
+                      styles.optionsHome
+                    }>{`${selectedProductCOMMName}`}</Text>
+                  {selectedProductCOMM !== null && (
+                    <Text>{`${selectedProductCOMM}`}</Text>
+                  )}
+                </View>
+              )}
+              {selectedProductFURN !== undefined && (
+                <View style={styles.blockGeneralInformationEach}>
+                  <Text
+                    style={
+                      styles.optionsHome
+                    }>{`${selectedProductFURNName}`}</Text>
+                  {selectedProductFURN !== null && (
+                    <Text>{`${selectedProductFURN}`}</Text>
+                  )}
+                </View>
+              )}
+              {selectedProductHHAP !== undefined && (
+                <View style={styles.blockGeneralInformationEach}>
+                  <Text
+                    style={
+                      styles.optionsHome
+                    }>{`${selectedProductHHAPName}`}</Text>
+                  {selectedProductHHAP !== null && (
+                    <Text>{`${selectedProductHHAP}`}</Text>
+                  )}
+                </View>
+              )}
+              {selectedProductAP_IMP !== undefined && (
+                <View style={styles.blockGeneralInformationEach}>
+                  <Text
+                    style={
+                      styles.optionsHome
+                    }>{`${selectedProductAP_IMPName}`}</Text>
+                  {selectedProductAP_IMP !== null && (
+                    <Text>{`${selectedProductAP_IMP}`}</Text>
+                  )}
+                </View>
+              )}
+              {selectedProductSettlement !== undefined && (
+                <View style={styles.blockGeneralInformationEach}>
+                  <Text
+                    style={
+                      styles.optionsHome
+                    }>{`${selectedProductSettlementName}`}</Text>
+                  {selectedProductSettlement !== null && (
+                    <Text>{`${selectedProductSettlement}`}</Text>
+                  )}
+                </View>
+              )}
+              {selectedProductSeller !== undefined && (
+                <View style={styles.blockGeneralInformationEach}>
+                  <Text
+                    style={
+                      styles.optionsHome
+                    }>{`${selectedProductSellerName}`}</Text>
+                  {selectedProductSeller !== null && (
+                    <Text>{`${selectedProductSeller}`}</Text>
+                  )}
+                </View>
+              )}
               {selectedProductSeries !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
                   <Text
@@ -254,7 +398,7 @@ export const CardScreenRent = () => {
                     style={
                       styles.optionsHome
                     }>{`${selectedProductRepairName}`}</Text>
-                  {selectedProductSeries !== null && (
+                  {selectedProductRepair !== null && (
                     <Text>{`${selectedProductRepair}`}</Text>
                   )}
                 </View>
@@ -281,6 +425,7 @@ export const CardScreenRent = () => {
                   )}
                 </View>
               )}
+
               {selectedProductTermsChildren !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
                   <Text
@@ -292,25 +437,18 @@ export const CardScreenRent = () => {
                   )}
                 </View>
               )}
-              {selectedProductTermsExtra !== undefined && (
+              <Button
+                title="Открыть Яндекс Карты с маркером"
+                onPress={openYandexMapsWithMarker}
+              />
+              {selectedProductSellerPhone !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
                   <Text
                     style={
                       styles.optionsHome
-                    }>{`${selectedProductTermsExtraName}`}</Text>
-                  {selectedProductTermsExtra !== null && (
-                    <Text>{`${selectedProductTermsExtra}`}</Text>
-                  )}
-                </View>
-              )}
-              {selectedProductBuildingYear !== undefined && (
-                <View style={styles.blockGeneralInformationEach}>
-                  <Text
-                    style={
-                      styles.optionsHome
-                    }>{`${selectedProductBuildingYearName}`}</Text>
-                  {selectedProductBuildingYear !== null && (
-                    <Text>{`${selectedProductBuildingYear}`}</Text>
+                    }>{`${selectedProductSellerPhoneName}`}</Text>
+                  {selectedProductSellerPhone !== null && (
+                    <Text>{`${selectedProductSellerPhone}`}</Text>
                   )}
                 </View>
               )}
@@ -360,5 +498,8 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     paddingRight: 50,
     /*width: '100%',*/
+  },
+  map: {
+    flex: 1,
   },
 });
