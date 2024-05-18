@@ -14,6 +14,7 @@ import {
   TouchableWithoutFeedback,
   Modal,
   TouchableOpacity,
+  TextInput,
 } from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
@@ -28,16 +29,38 @@ export const ScreenRent = () => {
   const setParameters = useLongRentStore(state => state.setParameters);
 
   const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [cityFilter, setCityFilter] = React.useState(10);
+  const [roomsFilter, setRoomsFilter] = React.useState(1);
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
 
+  const applyFilters = toIndex => {
+    const city = parseInt(cityFilter); // Преобразование введенного значения в число
+    setCityFilter(city); // Установка значения cityFilter в хранилище
+    const room = parseInt(roomsFilter); // Преобразование введенного значения в число
+    setRoomsFilter(room); // Установка значения roomsFilter в хранилище
+
+    useLongRentStore.getState().fetchRooms(cityFilter, roomsFilter, toIndex);
+
+    //setRoomFilter
+    // Implement logic to apply the selected filters
+    // For example, you can make an API call with the filter values
+
+    console.log('City:', city);
+    console.log('City Filter:', cityFilter);
+    console.log('Rooms Filter:', roomsFilter);
+    // You can add more logic here
+  };
 
   useEffect(() => {
     toggleModal(); // Open the modal when the component mounts
   }, []); // Empty dependency array to run this effect only once on mount
 
+  useEffect(() => {
+    fetchRooms();
+  }, [fetchRooms]);
 
   const handleNavigate = (
     id: number,
@@ -129,10 +152,6 @@ export const ScreenRent = () => {
 
   const scrollView = useRef(null);
 
-  useEffect(() => {
-    fetchRooms();
-  }, [fetchRooms]);
-
   let toIndex = 1;
   const fetchRoomsComponent = () => {
     if (rooms?.length > 0) {
@@ -156,21 +175,25 @@ export const ScreenRent = () => {
 
               if (event.nativeEvent.contentOffset.y > windowHeight * 2) {
                 toIndex++;
-                useLongRentStore.getState().fetchRooms(toIndex);
+                //useLongRentStore.getState().fetchRooms(toIndex);
 
-                console.log(useLongRentStore.getState().fetchRooms(toIndex));
+                //console.log(useLongRentStore.getState().fetchRooms(toIndex));
+
+                applyFilters(toIndex);
 
                 console.log(toIndex);
               }
               if (event.nativeEvent.contentOffset.y == 0) {
                 toIndex--;
                 console.log(toIndex);
-                useLongRentStore.getState().fetchRooms(toIndex);
+                //useLongRentStore.getState().fetchRooms(toIndex);
+                applyFilters(toIndex);
               }
               if (toIndex == 1) {
                 toIndex = 1;
                 console.log(toIndex);
-                useLongRentStore.getState().fetchRooms(toIndex);
+                //useLongRentStore.getState().fetchRooms(toIndex);
+                applyFilters(toIndex);
               }
             }}>
             <View>
@@ -288,6 +311,19 @@ export const ScreenRent = () => {
             <View
               style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
               <Text>This is a modal</Text>
+              <Text>City:</Text>
+              <TextInput
+                value={cityFilter}
+                onChangeText={setCityFilter}
+                placeholder={`Enter City ${cityFilter}`}
+              />
+              <Text>Number of Rooms:</Text>
+              <TextInput
+                value={roomsFilter}
+                onChangeText={setRoomsFilter}
+                placeholder="Enter Number of Rooms"
+              />
+              <Button title="Apply Filters" onPress={applyFilters} />
               <Button title="Close" onPress={toggleModal} />
             </View>
           </Modal>

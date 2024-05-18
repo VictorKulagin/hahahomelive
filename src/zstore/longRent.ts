@@ -343,6 +343,7 @@ interface Rooms {
 export interface LongRentState {
   rooms: Rooms[];
   page: number;
+  room: number;
   selectedProductId: number;
   selectedProductTitle: string;
   selectedProductPictures: string[];
@@ -384,8 +385,12 @@ export interface LongRentState {
   selectedProductSellerPhoneName: string;
   parameters: object;
   updatePage: (page: number) => void;
-  fetchRooms: () => void;
+  setCityFilter: (city: number) => void;
+  setRoomFilter: (room: number) => void;
+  fetchRooms: (city: number, newPage: number) => Promise<void>;
   setParameters: (params: object) => void;
+  city: number;
+  setRoomsFilter: (rooms: number) => void;
 }
 
 //https://hahahome.live/api/v1/rooms?page=1
@@ -393,6 +398,8 @@ export interface LongRentState {
 export const useLongRentStore = create<LongRentState>((set, get) => ({
   rooms: [],
   page: 1,
+  city: 10,
+  room: 1,
   selectedProductId: null,
   selectedProductTitle: null,
   selectedProductPictures: [],
@@ -432,10 +439,14 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
   selectedProductMAP_LNG: null,
   selectedProductSellerPhone: null,
   selectedProductSellerPhoneName: null,
-  fetchRooms: async (newPage: number) => {
+
+  fetchRooms: async (city: number = 10, room: number = 1, newPage: number) => {
+    console.log(city + ' citySTORE');
+    console.log(room + ' roomSTORE');
     const response = await fetch(
-      `https://hahahome.live/api/v1/rooms?page=${newPage}`,
+      `https://hahahome.live/api/v1/rooms?p_city=${city}&p_rooms=${room}&page=${newPage}`,
     );
+    /*p_city=${cityFilter}&p_rooms=${roomsFilter}&     p_city=${city}&*/
     const data = await response.json();
     //console.log(data.rooms);
     set({rooms: data.rooms});
@@ -444,6 +455,17 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
     const {page} = get();
     set({page: useLongRentStore.getState().page});
   },
+
+  setCityFilter: () => {
+    const {city} = get();
+    set({city: useLongRentStore.getState().city});
+  },
+
+  setRoomsFilter: () => {
+    const {room} = get();
+    set({room: useLongRentStore.getState().room});
+  },
+
   setParameters: (
     id: number,
     title: string,
