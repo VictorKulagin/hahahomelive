@@ -391,15 +391,19 @@ export interface LongRentState {
   setParameters: (params: object) => void;
   city: number;
   setRoomsFilter: (rooms: number) => void;
+  setPriceFilter: (price: number[]) => void;
+  success: boolean;
 }
 
 //https://hahahome.live/api/v1/rooms?page=1
 
 export const useLongRentStore = create<LongRentState>((set, get) => ({
   rooms: [],
-  page: 1,
-  city: 10,
-  room: 1,
+  page: '',
+  city: '',
+  room: '',
+  price: [],
+  success: false,
   selectedProductId: null,
   selectedProductTitle: null,
   selectedProductPictures: [],
@@ -440,15 +444,66 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
   selectedProductSellerPhone: null,
   selectedProductSellerPhoneName: null,
 
-  fetchRooms: async (city: number = 10, room: number = 1, newPage: number) => {
-    console.log(city + ' citySTORE');
+  fetchRooms: async (
+    /*city: number,
+    room: number,
+    price: number[],*/
+    newPage: number = 1,
+  ) => {
+    /*console.log(city + ' citySTORE');
     console.log(room + ' roomSTORE');
+    console.log(price + ' priceSTORE');*/
+    console.log(newPage + ' newPageSTORE');
+
+    let params = {
+      /* p_city: city,
+      p_rooms: room,
+      p_price: price,*/
+      page: newPage,
+    };
+    //console.log(params + 'let params');
+    for (const key in params) {
+      if (
+        params[key] === null ||
+        params[key] === '' ||
+        params[key] === undefined
+      ) {
+        delete params[key];
+      }
+    }
+    const keys = Object.keys(params);
+    //console.log(keys); // Вывод ключей объекта params
+
+    const values = Object.values(params);
+    //console.log(values); // Вывод значений объекта params
+
+    const paramString =
+      '?' +
+      Object.keys(params)
+        .map(key => `${key}=${params[key]}`)
+        .join('&');
+
+    // console.log(params);
+    //console.log(paramString); // Вывод строки в нужном формате с знаком вопроса в начале
+    console.log(`https://hahahome.live/api/v1/rooms${paramString}`);
     const response = await fetch(
-      `https://hahahome.live/api/v1/rooms?p_city=${city}&p_rooms=${room}&page=${newPage}`,
+      `https://hahahome.live/api/v1/rooms${paramString}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params),
+      },
     );
+
+    /* const response = await fetch(
+      `https://hahahome.live/api/v1/rooms?p_city=${city}&p_rooms=${room}&page=${newPage}`,
+    );*/
+
     /*p_city=${cityFilter}&p_rooms=${roomsFilter}&     p_city=${city}&*/
+
     const data = await response.json();
-    //console.log(data.rooms);
     set({rooms: data.rooms});
   },
   updatePage: () => {
@@ -464,6 +519,11 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
   setRoomsFilter: () => {
     const {room} = get();
     set({room: useLongRentStore.getState().room});
+  },
+
+  setPriceFilter: () => {
+    const {price} = get();
+    set({price: useLongRentStore.getState().price});
   },
 
   setParameters: (
