@@ -472,10 +472,8 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
       }
     }
     const keys = Object.keys(params);
-    //console.log(keys); // Вывод ключей объекта params
 
     const values = Object.values(params);
-    //console.log(values); // Вывод значений объекта params
 
     const paramString =
       '?' +
@@ -483,8 +481,6 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
         .map(key => `${key}=${params[key]}`)
         .join('&');
 
-    // console.log(params);
-    //console.log(paramString); // Вывод строки в нужном формате с знаком вопроса в начале
     console.log(`https://hahahome.live/api/v1/rooms${paramString}`);
     const response = await fetch(
       `https://hahahome.live/api/v1/rooms${paramString}`,
@@ -500,11 +496,24 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
     /* const response = await fetch(
       `https://hahahome.live/api/v1/rooms?p_city=${city}&p_rooms=${room}&page=${newPage}`,
     );*/
+    // Получаем предыдущие данные страницы из состояния
+    const previousRooms = get().rooms;
 
-    /*p_city=${cityFilter}&p_rooms=${roomsFilter}&     p_city=${city}&*/
-
+    // Склеиваем предыдущие данные страницы с новыми данными
     const data = await response.json();
-    set({rooms: data.rooms});
+    const updatedRooms = [...previousRooms, ...data.rooms];
+    set({rooms: updatedRooms});
+
+    //const data = await response.json();
+    //set({rooms: [...data.rooms]});
+    /*const newRooms = [
+      ...data.rooms,
+      ...data.rooms.map(room => ({...room, id: room.id + '-duplicate'})),
+    ];
+
+    console.log('New Rooms:', newRooms);
+
+    set({rooms: newRooms});*/
   },
   updatePage: () => {
     const {page} = get();

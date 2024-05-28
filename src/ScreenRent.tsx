@@ -52,7 +52,8 @@ export const ScreenRent = () => {
   const [toIndex, setToIndex] = React.useState(0);
 
   const [isLoading, setLoading] = React.useState(true);
-  const keyExtractor = useCallback(item => item.id.toString());
+  //const keyExtractor = useCallback(item => item.id.toString());
+  const keyExtractor = useCallback((item, index) => item.id.toString() + index);
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
@@ -197,13 +198,6 @@ export const ScreenRent = () => {
 
   // @ts-ignore
   const [page, setPage] = React.useState(1);
-
-  /*const onEndReached = () => {
-    const nextPage = page + 1;
-    setPage(nextPage);
-    applyFilters(nextPage);
-  };*/
-
 
   const onEndReached = useCallback(() => {
     setPage(prevPage => prevPage + 1);
