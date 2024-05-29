@@ -17,6 +17,7 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  RefreshControl,
 } from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
@@ -89,19 +90,6 @@ export const ScreenRent = () => {
 
     // You can add more logic here
   };
-
-  const smoothScrollToIndex = index => {
-    if (scrollViewRef.current) {
-      scrollViewRef.current.scrollTo({
-        y: (index * screenHeight) / itemsPerPage,
-        animated: true,
-      });
-    }
-  };
-
-  /*useEffect(() => {
-    toggleModal(); // Open the modal when the component mounts
-  }, []); // Empty dependency array to run this effect only once on mount*/
 
   useEffect(() => {
     fetchRooms();
@@ -207,6 +195,18 @@ export const ScreenRent = () => {
     applyFilters(page);
   }, [page]);
 
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = () => {
+    // Your refresh logic here
+    setRefreshing(true);
+    applyFilters(1);
+    // Simulate a delay to show refreshing indicator
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  };
+
   const fetchRoomsComponent = () => {
     if (rooms?.length > 0) {
       return (
@@ -222,8 +222,11 @@ export const ScreenRent = () => {
               keyExtractor={keyExtractor}
               numColumns={2}
               ListEmptyComponent={Empty}
-              onEndReachedThreshold={0.01}
+              onEndReachedThreshold={0.1}
               onEndReached={onEndReached}
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }
               renderItem={({item}) => (
                 <View style={styles.cardContainer}>
                   <TouchableWithoutFeedback
@@ -401,15 +404,16 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
   },*/
   tinyLogo: {
-    height: 180,
-    width: 200,
+    //height: 195,
+    height: Dimensions.get('window').width - 190, // Вычитаем 10 для учета отступов
     borderRadius: 5,
   },
   card: {
     backgroundColor: 'white',
     padding: 1.5,
-    marginLeft: 5,
-    width: 200,
+    marginLeft: 2,
+    marginRight: 2,
+    width: Dimensions.get('window').width - 210, // Вычитаем 10 для учета отступов
     /*backgroundColor: 'red',*/
   },
   /* cardTextBlack: {
