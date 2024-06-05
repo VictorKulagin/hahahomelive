@@ -444,36 +444,62 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
   selectedProductSellerPhone: null,
   selectedProductSellerPhoneName: null,
 
+  /*rooms: [], // Ваш массив элементов
+
+  clearElements: () => {
+    set({rooms: []}); // Очистка массива элементов
+  },*/
+
+  clearElements: () => {
+    set({ rooms: [] });
+  },
+
   fetchRooms: async (
-    /*city: number,
+    /*city: number,*/
     room: number,
-    price: number[],*/
-    newPage: number = 1,
+    /*price: number[],*/
+    newPage: number,
   ) => {
-    /*console.log(city + ' citySTORE');
-    console.log(room + ' roomSTORE');
-    console.log(price + ' priceSTORE');*/
-    console.log(newPage + ' newPageSTORE');
+    /*console.log(city + ' citySTORE');*/
+    /*console.log(room + ' roomSTORE');*/
+    /*console.log(price + ' priceSTORE');*/
+    /*console.log(newPage + ' newPageSTORE');*/
+
+    /*let clearElementsExecuted = false;
+
+    if (room && !clearElementsExecuted) {
+      get().clearElements();
+      clearElementsExecuted = true;
+    }*/
 
     let params = {
-      /* p_city: city,
+      /* p_city: city,*/
       p_rooms: room,
-      p_price: price,*/
+      /*p_price: price,*/
       page: newPage,
     };
     //console.log(params + 'let params');
+
+    for (let key in params) {
+      console.log(key + ': ', params[key]);
+    }
+
     for (const key in params) {
+      console.log(params[key] + ' let params key');
       if (
         params[key] === null ||
         params[key] === '' ||
-        params[key] === undefined
+        params[key] === undefined ||
+        isNaN(params[key])
       ) {
         delete params[key];
       }
     }
     const keys = Object.keys(params);
+    console.log(keys + ' keys********');
 
     const values = Object.values(params);
+    console.log(values + ' values********');
 
     const paramString =
       '?' +
@@ -481,7 +507,9 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
         .map(key => `${key}=${params[key]}`)
         .join('&');
 
-    console.log(`https://hahahome.live/api/v1/rooms${paramString}`);
+    console.log(
+      `https://hahahome.live/api/v1/rooms${paramString} + "paramString"`,
+    );
     const response = await fetch(
       `https://hahahome.live/api/v1/rooms${paramString}`,
       {
@@ -497,6 +525,7 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
       `https://hahahome.live/api/v1/rooms?p_city=${city}&p_rooms=${room}&page=${newPage}`,
     );*/
     // Получаем предыдущие данные страницы из состояния
+
     const previousRooms = get().rooms;
 
     // Склеиваем предыдущие данные страницы с новыми данными

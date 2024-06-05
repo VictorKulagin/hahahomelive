@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useCallback} from 'react';
 import {useLongRentStore} from './zstore/longRent.ts';
 import {CardScreenRent} from './CardScreenRent.tsx';
+import {Radio} from './components/Radio.tsx';
 
 import {ActivityIndicator, Dimensions, Platform} from 'react-native';
 import {
@@ -28,9 +29,7 @@ debugger;
 export const ScreenRent = () => {
   const fetchRooms = useLongRentStore(state => state.fetchRooms);
   const rooms = useLongRentStore(state => state.rooms);
-  const success = useLongRentStore(state => state.success);
 
-  console.log(success + ' success');
   const navigation = useNavigation();
   const setParameters = useLongRentStore(state => state.setParameters);
 
@@ -62,17 +61,26 @@ export const ScreenRent = () => {
 
   const applyFilters = newIndex => {
     /*const city = parseInt(cityFilter); // Преобразование введенного значения в число
-    setCityFilter(city); // Установка значения cityFilter в хранилище
+    setCityFilter(city); // Установка значения cityFilter в хранилище*/
     const room = parseInt(roomsFilter); // Преобразование введенного значения в число
     setRoomsFilter(room); // Установка значения roomsFilter в хранилище
-    const price = [minPrice, maxPrice]; // Преобразование введенного значения в число
+    /*const price = [minPrice, maxPrice]; // Преобразование введенного значения в число
     setPriceFilter(price); // Установка значения roomsFilter в хранилище*/
-    console.log('Applying filters with index:', newIndex);
+    //console.log('Applying filters with index:', newIndex);
+
+    if (roomsFilter) {
+      // Очистка предыдущих элементов через стор longRent
+      // useLongRentStore.getState().clearElements();
+      console.log('CLEAR ELEMENTS');
+    }
+
+    console.log('VALUE roomsFilter:', roomsFilter);
+
     useLongRentStore.getState().fetchRooms(
-      /* cityFilter,
+      /* cityFilter,*/
       roomsFilter,
-      price,*/
-      /*typeof toIndex === 'object' ? 1 : toIndex,*/
+      /*price,*/
+      //typeof toIndex === 'object' ? 1 : toIndex,
       newIndex,
     );
     //setRoomFilter
@@ -336,7 +344,23 @@ export const ScreenRent = () => {
                 onChangeText={setCityFilter}
                 placeholder={`Enter City ${cityFilter}`}
               />
-              <Text>Number of Rooms:</Text>
+              <Text>Комнат в квартире:</Text>
+              <Radio
+                options={[
+                  {label: '1', value: '1'},
+                  {label: '2', value: '2'},
+                  {label: '3', value: '3'},
+                  {label: '4', value: '4'},
+                  {label: '5', value: '5'},
+                  {label: '6', value: '154'},
+                  {label: 'Больше 6', value: '6'},
+                  {label: 'Свободная планировка', value: '32'},
+                  {label: 'Студия', value: '33'},
+                ]}
+                checkedValue={roomsFilter}
+                onChange={setRoomsFilter}
+                style={{marginBottom: 10}}
+              />
               <TextInput
                 value={roomsFilter}
                 onChangeText={setRoomsFilter}
@@ -354,7 +378,14 @@ export const ScreenRent = () => {
                 onChangeText={setMaxPrice}
                 placeholder="Enter Max Price"
               />
-              <Button title="Apply Filters" onPress={applyFilters} />
+              <Button
+                title="Apply Filters"
+                onPress={() => {
+                  applyFilters(); // Вызов функции applyFilters
+                  useLongRentStore.getState().clearElements(); // Сброс состояния хранилища Zustand
+                }}
+              />
+
               <Button title="Close" onPress={toggleModal} />
             </View>
           </Modal>
