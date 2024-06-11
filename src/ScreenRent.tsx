@@ -25,10 +25,37 @@ import {useNavigation} from '@react-navigation/native';
 import {Button} from 'react-native';
 import {Empty} from './components/Empty.tsx';
 
+import {Dropdown} from 'react-native-element-dropdown';
+
 debugger;
+
+const data = [
+  {label: 'Бишкек', value: '10'},
+  {label: 'Item 2', value: '2'},
+  {label: 'Item 3', value: '3'},
+  {label: 'Item 4', value: '4'},
+  {label: 'Item 5', value: '5'},
+  {label: 'Item 6', value: '6'},
+  {label: 'Item 7', value: '7'},
+  {label: 'Item 8', value: '8'},
+];
 export const ScreenRent = () => {
   const fetchRooms = useLongRentStore(state => state.fetchRooms);
   const rooms = useLongRentStore(state => state.rooms);
+  const roomsFilters = useLongRentStore(state => state.roomsFilters);
+
+  //console.log(roomsFilters['12'].elements + ' roomsFilters + ');
+
+  //const roomsFilters['12']['elements'];
+
+  const cityFilterKeyArray = roomsFilters['12']?.elements
+    ? Object.entries(roomsFilters['12']?.elements).map(([value, label]) => ({
+        label,
+        value,
+      }))
+    : [];
+
+  //console.log(dataR + ' dataR + ');
 
   const navigation = useNavigation();
   const setParameters = useLongRentStore(state => state.setParameters);
@@ -39,6 +66,8 @@ export const ScreenRent = () => {
   const totalPages = 598;
   const totalItems = itemsPerPage * totalPages;
   let currentIndex = 0;
+
+  const [value, setValue] = React.useState(null);
 
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [cityFilter, setCityFilter] = React.useState(10);
@@ -60,7 +89,7 @@ export const ScreenRent = () => {
   };
 
   const applyFilters = newIndex => {
-    /*const city = parseInt(cityFilter); // Преобразование введенного значения в число
+    const city = parseInt(cityFilter); // Преобразование введенного значения в число
     setCityFilter(city); // Установка значения cityFilter в хранилище*/
     const room = parseInt(roomsFilter); // Преобразование введенного значения в число
     setRoomsFilter(room); // Установка значения roomsFilter в хранилище
@@ -77,7 +106,7 @@ export const ScreenRent = () => {
     console.log('VALUE roomsFilter:', roomsFilter);
 
     useLongRentStore.getState().fetchRooms(
-      /* cityFilter,*/
+      city,
       roomsFilter,
       /*price,*/
       //typeof toIndex === 'object' ? 1 : toIndex,
@@ -335,6 +364,27 @@ export const ScreenRent = () => {
           </TouchableOpacity>
           {/* Modal component */}
           <Modal visible={isModalVisible} animationType="slide">
+            <Dropdown
+              style={styles.dropdown}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              inputSearchStyle={styles.inputSearchStyle}
+              iconStyle={styles.iconStyle}
+              data={cityFilterKeyArray}
+              search
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder="Select item"
+              searchPlaceholder="Search..."
+              value={value}
+              onChange={item => {
+                setCityFilter(item.value);
+              }}
+              /*renderLeftIcon={() => (
+                <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
+              )}*/
+            />
             <View
               style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
               <Text>This is a modal</Text>
@@ -452,4 +502,28 @@ const styles = StyleSheet.create({
     fontSize: 16,
     ineHeight: 1.3,
   },*/
+
+  dropdown: {
+    margin: 16,
+    height: 50,
+    borderBottomColor: 'gray',
+    borderBottomWidth: 0.5,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
 });

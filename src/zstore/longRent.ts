@@ -340,10 +340,25 @@ interface Rooms {
   prop: Prop[];
 }
 
+interface Elements {
+  [key: string]: string;
+}
+interface City12 {
+  id: number;
+  title: string;
+  code: string;
+  type: string;
+  elements?: Elements[];
+}
+interface dataFilter {
+  12: City12[];
+}
+
 export interface LongRentState {
   rooms: Rooms[];
   page: number;
   room: number;
+  roomsFilters: dataFilter[];
   selectedProductId: number;
   selectedProductTitle: string;
   selectedProductPictures: string[];
@@ -392,6 +407,7 @@ export interface LongRentState {
   city: number;
   setRoomsFilter: (rooms: number) => void;
   setPriceFilter: (price: number[]) => void;
+  setRoomsFilter38: () => void;
   success: boolean;
 }
 
@@ -404,6 +420,7 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
   room: '',
   price: [],
   success: false,
+  roomsFilters: '',
   selectedProductId: null,
   selectedProductTitle: null,
   selectedProductPictures: [],
@@ -451,11 +468,11 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
   },*/
 
   clearElements: () => {
-    set({ rooms: [] });
+    set({rooms: []});
   },
 
   fetchRooms: async (
-    /*city: number,*/
+    city: number,
     room: number,
     /*price: number[],*/
     newPage: number,
@@ -473,7 +490,7 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
     }*/
 
     let params = {
-      /* p_city: city,*/
+      p_city: city,
       p_rooms: room,
       /*p_price: price,*/
       page: newPage,
@@ -481,11 +498,11 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
     //console.log(params + 'let params');
 
     for (let key in params) {
-      console.log(key + ': ', params[key]);
+      // console.log(key + ': ', params[key]);
     }
 
     for (const key in params) {
-      console.log(params[key] + ' let params key');
+      // console.log(params[key] + ' let params key');
       if (
         params[key] === null ||
         params[key] === '' ||
@@ -526,12 +543,36 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
     );*/
     // Получаем предыдущие данные страницы из состояния
 
+    // Добавление нового URL
+    const filterUrl = 'https://hahahome.live/api/v1/props?category_id=38';
+
+    const responseFilter = await fetch(
+      filterUrl, // Обновленный URL
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // Дополнительные параметры запроса, если необходимо
+      },
+    );
+
     const previousRooms = get().rooms;
 
     // Склеиваем предыдущие данные страницы с новыми данными
     const data = await response.json();
     const updatedRooms = [...previousRooms, ...data.rooms];
     set({rooms: updatedRooms});
+
+    const dataFilter = await responseFilter.json();
+    //console.log(dataFilter + ' dataFilter');
+    /*for (const key in dataFilter['12']['elements']) {
+      if (dataFilter['12']['elements'].hasOwnProperty(key)) {
+        const value = dataFilter['12']['elements'][key];
+        console.log(`Ключ: ${key}, Значение: ${value}`);
+      }
+    }*/
+    set({roomsFilters: dataFilter});
 
     //const data = await response.json();
     //set({rooms: [...data.rooms]});
@@ -557,6 +598,11 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
   setRoomsFilter: () => {
     const {room} = get();
     set({room: useLongRentStore.getState().room});
+  },
+
+  filtersFromStore: () => {
+    const {roomsFilter} = get();
+    set({roomsFilter: useLongRentStore.getState().roomsFilter});
   },
 
   setPriceFilter: () => {
