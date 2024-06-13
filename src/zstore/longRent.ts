@@ -473,6 +473,10 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
 
   fetchRooms: async (
     city: number,
+    salesmanId: number,
+    cityArea: number,
+    pPriceF0: number,
+    pPriceF1: number,
     room: number,
     /*price: number[],*/
     newPage: number,
@@ -491,6 +495,12 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
 
     let params = {
       p_city: city,
+      p_seller: salesmanId,
+      p_city_area: cityArea,
+      'p_price_f[0]': pPriceF0,
+      //'p_price_f%5B0%5D': pPriceF0,
+      'p_price_f[1]': pPriceF1,
+      //'p_price_f%5B1%5D': pPriceF1,
       p_rooms: room,
       /*p_price: price,*/
       page: newPage,

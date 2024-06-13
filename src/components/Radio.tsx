@@ -15,7 +15,7 @@ export const Radio = ({options, checkedValue, onChange, style}) => {
         horizontal
         renderItem={({item, index}) => {
           let active = item.value === checkedValue;
-          let itemWidth = index >= options.length - 3 ? 120 : 60; // Установка ширины элемента в зависимости от индекса
+          let itemWidth = index >= options.length - 3 ? 130 : 125; // Установка ширины элемента в зависимости от индекса
           return (
             <TouchableOpacity
               style={
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   text: {
-    fontSize: 12,
+    fontSize: 15,
     textAlign: 'center',
   },
   flatList: {

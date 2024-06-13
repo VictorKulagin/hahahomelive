@@ -55,7 +55,31 @@ export const ScreenRent = () => {
       }))
     : [];
 
-  //console.log(dataR + ' dataR + ');
+  const salesmanFilterKeyArray = roomsFilters['12']?.elements
+    ? Object.entries(roomsFilters['9']?.elements).map(([value, label]) => ({
+        label,
+        value,
+      }))
+    : [];
+
+  const areaFilterKeyArray = roomsFilters['44']?.elements
+    ? Object.entries(roomsFilters['44']?.elements).map(([value, label]) => ({
+        label,
+        value,
+      }))
+    : [];
+
+  const roomsFilterKeyArray = roomsFilters['3']?.elements
+    ? Object.entries(roomsFilters['3']?.elements).map(([value, label]) => ({
+        label,
+        value,
+      }))
+    : [];
+
+  console.log(salesmanFilterKeyArray[1] + ' salesmanFilterKeyArray + ');
+  for (let key in salesmanFilterKeyArray) {
+    console.log(key + ': ', salesmanFilterKeyArray[key]);
+  }
 
   const navigation = useNavigation();
   const setParameters = useLongRentStore(state => state.setParameters);
@@ -70,6 +94,9 @@ export const ScreenRent = () => {
   const [value, setValue] = React.useState(null);
 
   const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [salesmanFilter, setSalesmanFilter] = React.useState('');
+  const [areaFilter, setAreaFilter] = React.useState('');
+  const [areaLabelFilter, setAreaLabelFilter] = React.useState('');
   const [cityFilter, setCityFilter] = React.useState(10);
   const [roomsFilter, setRoomsFilter] = React.useState('');
 
@@ -91,8 +118,16 @@ export const ScreenRent = () => {
   const applyFilters = newIndex => {
     const city = parseInt(cityFilter); // Преобразование введенного значения в число
     setCityFilter(city); // Установка значения cityFilter в хранилище*/
+    const salesman = parseInt(salesmanFilter); // Преобразование введенного значения в число
+    setSalesmanFilter(salesman); // Установка значения cityFilter в хранилище*/
+    const cityArea = parseInt(areaFilter); // Преобразование введенного значения в число
+    setAreaFilter(cityArea); // Установка значения roomsFilter в хранилище
     const room = parseInt(roomsFilter); // Преобразование введенного значения в число
     setRoomsFilter(room); // Установка значения roomsFilter в хранилище
+    const pPriceF0 = parseInt(minPrice); // Преобразование введенного значения в число
+    setMinPrice(pPriceF0); // Установка значения roomsFilter в хранилище
+    const pPriceF1 = parseInt(maxPrice); // Преобразование введенного значения в число
+    setMaxPrice(pPriceF1); // Установка значения roomsFilter в хранилище
     /*const price = [minPrice, maxPrice]; // Преобразование введенного значения в число
     setPriceFilter(price); // Установка значения roomsFilter в хранилище*/
     //console.log('Applying filters with index:', newIndex);
@@ -107,6 +142,10 @@ export const ScreenRent = () => {
 
     useLongRentStore.getState().fetchRooms(
       city,
+      salesman,
+      cityArea,
+      pPriceF0,
+      pPriceF1,
       roomsFilter,
       /*price,*/
       //typeof toIndex === 'object' ? 1 : toIndex,
@@ -364,39 +403,99 @@ export const ScreenRent = () => {
           </TouchableOpacity>
           {/* Modal component */}
           <Modal visible={isModalVisible} animationType="slide">
-            <Dropdown
-              style={styles.dropdown}
-              placeholderStyle={styles.placeholderStyle}
-              selectedTextStyle={styles.selectedTextStyle}
-              inputSearchStyle={styles.inputSearchStyle}
-              iconStyle={styles.iconStyle}
-              data={cityFilterKeyArray}
-              search
-              maxHeight={300}
-              labelField="label"
-              valueField="value"
-              placeholder="Select item"
-              searchPlaceholder="Search..."
-              value={value}
-              onChange={item => {
-                setCityFilter(item.value);
-              }}
-              /*renderLeftIcon={() => (
-                <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-              )}*/
-            />
             <View
-              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <Text>This is a modal</Text>
-              <Text>City:</Text>
-              <TextInput
-                value={cityFilter}
-                onChangeText={setCityFilter}
-                placeholder={`Enter City ${cityFilter}`}
+              style={{
+                flex: 1 /*, justifyContent: 'center', alignItems: 'center'*/,
+                marginLeft: 10,
+                marginRight: 10,
+              }}>
+              <Dropdown
+                style={styles.dropdown}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                inputSearchStyle={styles.inputSearchStyle}
+                iconStyle={styles.iconStyle}
+                data={cityFilterKeyArray}
+                search
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder="Выберете город"
+                searchPlaceholder="Поиск..."
+                value={value}
+                onChange={item => {
+                  setCityFilter(item.value);
+                }}
+                /*renderLeftIcon={() => (
+                  <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
+                )}*/
               />
-              <Text>Комнат в квартире:</Text>
+              {/*<Text style={{marginBottom: 10, marginLeft: 10, marginRight: 10}}>
+                Продавец:
+              </Text>*/}
               <Radio
-                options={[
+                options={salesmanFilterKeyArray}
+                checkedValue={salesmanFilter}
+                onChange={setSalesmanFilter}
+                style={{marginBottom: 10, marginLeft: 10, marginRight: 10}}
+              />
+
+              <Dropdown
+                style={styles.dropdown}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                inputSearchStyle={styles.inputSearchStyle}
+                iconStyle={styles.iconStyle}
+                data={areaFilterKeyArray}
+                search
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder={`${areaLabelFilter || 'Выберете район'}`}
+                searchPlaceholder="Поиск..."
+                value={value}
+                onChange={item => {
+                  setAreaFilter(item.value);
+                  setAreaLabelFilter(item.label);
+                }}
+                /*renderLeftIcon={() => (
+                  <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
+                )}*/
+              />
+
+              <View style={{flexDirection: 'row', paddingBottom: 20}}>
+                <View style={{flex: 1}}>
+                  <TextInput
+                    value={minPrice}
+                    onChangeText={setMinPrice}
+                    placeholder="Цена от"
+                    style={{
+                      backgroundColor: '#f3f4f6',
+                      padding: 5,
+                      marginLeft: 10,
+                      marginRight: 10,
+                      /*borderWidth: 1, borderColor: 'gray',*/ borderRadius: 5,
+                    }}
+                  />
+                </View>
+                <View style={{flex: 1}}>
+                  <TextInput
+                    value={maxPrice}
+                    onChangeText={setMaxPrice}
+                    placeholder="до"
+                    style={{
+                      backgroundColor: '#f3f4f6',
+                      padding: 5,
+                      marginLeft: 10,
+                      marginRight: 10,
+                      /*borderWidth: 1, borderColor: 'gray',*/ borderRadius: 5,
+                    }}
+                  />
+                </View>
+              </View>
+              <Radio
+                options={roomsFilterKeyArray}
+                /*options={[
                   {label: '1', value: '1'},
                   {label: '2', value: '2'},
                   {label: '3', value: '3'},
@@ -406,28 +505,12 @@ export const ScreenRent = () => {
                   {label: 'Больше 6', value: '6'},
                   {label: 'Свободная планировка', value: '32'},
                   {label: 'Студия', value: '33'},
-                ]}
+                ]}*/
                 checkedValue={roomsFilter}
                 onChange={setRoomsFilter}
-                style={{marginBottom: 10}}
+                style={{marginBottom: 10, marginLeft: 10, marginRight: 10}}
               />
-              <TextInput
-                value={roomsFilter}
-                onChangeText={setRoomsFilter}
-                placeholder="Enter Number of Rooms"
-              />
-              <Text>Number of minPrice:</Text>
-              <TextInput
-                value={minPrice}
-                onChangeText={setMinPrice}
-                placeholder="Enter Min Price"
-              />
-              <Text>Number of maxPrice:</Text>
-              <TextInput
-                value={maxPrice}
-                onChangeText={setMaxPrice}
-                placeholder="Enter Max Price"
-              />
+
               <Button
                 title="Apply Filters"
                 onPress={() => {
