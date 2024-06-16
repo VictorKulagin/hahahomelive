@@ -76,6 +76,13 @@ export const ScreenRent = () => {
       }))
     : [];
 
+  const seriesFilterKeyArray = roomsFilters['8']?.elements
+    ? Object.entries(roomsFilters['8']?.elements).map(([value, label]) => ({
+        label,
+        value,
+      }))
+    : [];
+
   console.log(salesmanFilterKeyArray[1] + ' salesmanFilterKeyArray + ');
   for (let key in salesmanFilterKeyArray) {
     console.log(key + ': ', salesmanFilterKeyArray[key]);
@@ -98,12 +105,22 @@ export const ScreenRent = () => {
   const [areaFilter, setAreaFilter] = React.useState('');
   const [areaLabelFilter, setAreaLabelFilter] = React.useState('');
   const [cityFilter, setCityFilter] = React.useState(10);
+  const [cityLabelFilter, setCityLabelFilter] = React.useState('Бишкек');
   const [roomsFilter, setRoomsFilter] = React.useState('');
 
   const [priceFilter, setPriceFilter] = React.useState<number[]>([]);
 
   const [minPrice, setMinPrice] = React.useState('');
   const [maxPrice, setMaxPrice] = React.useState('');
+
+  const [minFloor, setMinFloor] = React.useState('');
+  const [maxFloor, setMaxFloor] = React.useState('');
+
+  const [minTotalFloor, setMinTotalFloor] = React.useState('');
+  const [maxTotalFloor, setMaxTotalFloor] = React.useState('');
+
+  const [seriesFilter, setSeriesFilter] = React.useState('');
+  const [seriesLabelFilter, setSeriesLabelFilter] = React.useState('');
 
   const [toIndex, setToIndex] = React.useState(0);
 
@@ -128,6 +145,19 @@ export const ScreenRent = () => {
     setMinPrice(pPriceF0); // Установка значения roomsFilter в хранилище
     const pPriceF1 = parseInt(maxPrice); // Преобразование введенного значения в число
     setMaxPrice(pPriceF1); // Установка значения roomsFilter в хранилище
+
+    const pFloor0 = parseInt(minFloor); // Преобразование введенного значения в число
+    setMaxPrice(minFloor); // Установка значения roomsFilter в хранилище
+    const pFloor1 = parseInt(maxFloor); // Преобразование введенного значения в число
+    setMaxPrice(maxFloor); // Установка значения roomsFilter в хранилище
+
+    const pTotalFloor0 = parseInt(minTotalFloor); // Преобразование введенного значения в число
+    setMaxTotalFloor(minTotalFloor); // Установка значения roomsFilter в хранилище
+    const pTotalFloor1 = parseInt(maxTotalFloor); // Преобразование введенного значения в число
+    setMaxTotalFloor(maxTotalFloor); // Установка значения roomsFilter в хранилище
+
+    const pSeries = parseInt(seriesFilter); // Преобразование введенного значения в число
+    setSeriesFilter(seriesFilter); // Установка значения roomsFilter в хранилище
     /*const price = [minPrice, maxPrice]; // Преобразование введенного значения в число
     setPriceFilter(price); // Установка значения roomsFilter в хранилище*/
     //console.log('Applying filters with index:', newIndex);
@@ -147,6 +177,11 @@ export const ScreenRent = () => {
       pPriceF0,
       pPriceF1,
       roomsFilter,
+      pFloor0,
+      pFloor1,
+      pTotalFloor0,
+      pTotalFloor1,
+      pSeries,
       /*price,*/
       //typeof toIndex === 'object' ? 1 : toIndex,
       newIndex,
@@ -288,7 +323,8 @@ export const ScreenRent = () => {
       return (
         <SafeAreaView style={styles.container}>
           <View>
-            <View>{Header('Бишкек')}</View>
+            <View>{console.log(roomsFilter + "ROOMS + " + rooms?.length)}</View>
+            <View>{Header()}</View>
           </View>
           {isLoading ? (
             <ActivityIndicator size="large" color="#0000ff" />
@@ -375,22 +411,44 @@ export const ScreenRent = () => {
         </SafeAreaView>
       );
     }
+    if (!rooms || rooms.length === 0) {
+      return (
+        <>
+          {Header()}
+          <View>
+            <Text style={{textAlign: 'center'}}>{'Ничего не найдено'}</Text>
+          </View>
+        </>
+      );
+    } else {
+      return (
+        <SafeAreaView style={styles.container}>
+          {/* Existing code to display rooms when there are elements */}
+        </SafeAreaView>
+      );
+    }
   };
 
-  const Header = (city: string) => {
+  const Header = () => {
     return (
       <View style={styles.header}>
-        <View style={{alignItems: 'flex-start', width: '10%', padding: 10}}>
+        <View
+          style={{
+            alignItems: 'flex-start',
+            width: '5%',
+            padding: 10,
+            paddingTop: 18,
+          }}>
           <Image
             source={require('./image/icons8-map-24.png')}
-            style={{width: 30, height: 30}}
+            style={{width: 20, height: 20}}
             tintColor={'#274abb'}
           />
         </View>
         {/* Image that when clicked will open the modal */}
 
-        <View style={{alignItems: 'flex-start', width: '40%', padding: 10}}>
-          <Text>{city}</Text>
+        <View style={{alignItems: 'flex-start', width: '40%', padding: 15}}>
+          <Text style={{fontSize: 18}}>{cityLabelFilter}</Text>
         </View>
         <View style={{alignItems: 'flex-end', width: '50%', padding: 10}}>
           {/* Image that when clicked will open the modal */}
@@ -420,11 +478,12 @@ export const ScreenRent = () => {
                 maxHeight={300}
                 labelField="label"
                 valueField="value"
-                placeholder="Выберете город"
+                placeholder={`${cityLabelFilter || 'Выберете город'}`}
                 searchPlaceholder="Поиск..."
                 value={value}
                 onChange={item => {
                   setCityFilter(item.value);
+                  setCityLabelFilter(item.label);
                 }}
                 /*renderLeftIcon={() => (
                   <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
@@ -510,6 +569,88 @@ export const ScreenRent = () => {
                 onChange={setRoomsFilter}
                 style={{marginBottom: 10, marginLeft: 10, marginRight: 10}}
               />
+              <View style={{flexDirection: 'row', paddingBottom: 20}}>
+                <View style={{flex: 1}}>
+                  <TextInput
+                    value={minFloor}
+                    onChangeText={setMinFloor}
+                    placeholder="Этаж от"
+                    style={{
+                      backgroundColor: '#f3f4f6',
+                      padding: 5,
+                      marginLeft: 10,
+                      marginRight: 10,
+                      /*borderWidth: 1, borderColor: 'gray',*/ borderRadius: 5,
+                    }}
+                  />
+                </View>
+                <View style={{flex: 1}}>
+                  <TextInput
+                    value={maxFloor}
+                    onChangeText={setMaxFloor}
+                    placeholder="до"
+                    style={{
+                      backgroundColor: '#f3f4f6',
+                      padding: 5,
+                      marginLeft: 10,
+                      marginRight: 10,
+                      /*borderWidth: 1, borderColor: 'gray',*/ borderRadius: 5,
+                    }}
+                  />
+                </View>
+              </View>
+              <View style={{flexDirection: 'row', paddingBottom: 20}}>
+                <View style={{flex: 1}}>
+                  <TextInput
+                    value={minTotalFloor}
+                    onChangeText={setMinTotalFloor}
+                    placeholder="Всего этажей от"
+                    style={{
+                      backgroundColor: '#f3f4f6',
+                      padding: 5,
+                      marginLeft: 10,
+                      marginRight: 10,
+                      /*borderWidth: 1, borderColor: 'gray',*/ borderRadius: 5,
+                    }}
+                  />
+                </View>
+                <View style={{flex: 1}}>
+                  <TextInput
+                    value={maxTotalFloor}
+                    onChangeText={setMaxTotalFloor}
+                    placeholder="до"
+                    style={{
+                      backgroundColor: '#f3f4f6',
+                      padding: 5,
+                      marginLeft: 10,
+                      marginRight: 10,
+                      /*borderWidth: 1, borderColor: 'gray',*/ borderRadius: 5,
+                    }}
+                  />
+                </View>
+              </View>
+              <Dropdown
+                style={styles.dropdown}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                inputSearchStyle={styles.inputSearchStyle}
+                iconStyle={styles.iconStyle}
+                data={seriesFilterKeyArray}
+                search
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder={`${seriesLabelFilter || 'Серия дома'}`}
+                searchPlaceholder="Поиск..."
+                value={value}
+                onChange={item => {
+                  setSeriesFilter(item.value);
+                  setSeriesLabelFilter(item.label);
+                }}
+                /*renderLeftIcon={() => (
+                  <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
+                )}*/
+              />
 
               <Button
                 title="Apply Filters"
@@ -544,7 +685,7 @@ const styles = StyleSheet.create({
   header: {
     width: '100%',
     height: 50,
-    backgroundColor: '#c8c8c8',
+    backgroundColor: '#fcfcfc',
     flexDirection: 'row',
     justifyContent: 'center',
   },

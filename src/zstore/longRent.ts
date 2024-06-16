@@ -478,6 +478,11 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
     pPriceF0: number,
     pPriceF1: number,
     room: number,
+    pFloor0: number,
+    pFloor1: number,
+    pTotalFloor0: number,
+    pTotalFloor1: number,
+    pSeries: number,
     /*price: number[],*/
     newPage: number,
   ) => {
@@ -492,16 +497,21 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
       get().clearElements();
       clearElementsExecuted = true;
     }*/
+    let encodedStringPriceF0 = encodeURIComponent('p_price_f[0]');
+    console.log(encodedStringPriceF0 + ' encodedStringPriceF0');
 
     let params = {
       p_city: city,
       p_seller: salesmanId,
       p_city_area: cityArea,
       'p_price_f[0]': pPriceF0,
-      //'p_price_f%5B0%5D': pPriceF0,
       'p_price_f[1]': pPriceF1,
-      //'p_price_f%5B1%5D': pPriceF1,
       p_rooms: room,
+      'p_floor[0]': pFloor0,
+      'p_floor[1]': pFloor1,
+      'p_total_floor[0]': pTotalFloor0,
+      'p_total_floor[1]': pTotalFloor1,
+      p_series: pSeries,
       /*p_price: price,*/
       page: newPage,
     };
@@ -512,13 +522,16 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
     }
 
     for (const key in params) {
-      // console.log(params[key] + ' let params key');
       if (
         params[key] === null ||
         params[key] === '' ||
         params[key] === undefined ||
         isNaN(params[key])
       ) {
+        delete params[key];
+      } else if (key.includes('[') && key.includes(']')) {
+        const encodedKey = key.replace(/\[/g, '%5B').replace(/\]/g, '%5D');
+        params[encodedKey] = params[key];
         delete params[key];
       }
     }
