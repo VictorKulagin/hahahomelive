@@ -147,9 +147,9 @@ export const ScreenRent = () => {
     setMaxPrice(pPriceF1); // Установка значения roomsFilter в хранилище
 
     const pFloor0 = parseInt(minFloor); // Преобразование введенного значения в число
-    setMaxPrice(minFloor); // Установка значения roomsFilter в хранилище
+    setMinFloor(minFloor); // Установка значения roomsFilter в хранилище
     const pFloor1 = parseInt(maxFloor); // Преобразование введенного значения в число
-    setMaxPrice(maxFloor); // Установка значения roomsFilter в хранилище
+    setMaxFloor(maxFloor); // Установка значения roomsFilter в хранилище
 
     const pTotalFloor0 = parseInt(minTotalFloor); // Преобразование введенного значения в число
     setMaxTotalFloor(minTotalFloor); // Установка значения roomsFilter в хранилище
@@ -323,7 +323,6 @@ export const ScreenRent = () => {
       return (
         <SafeAreaView style={styles.container}>
           <View>
-            <View>{console.log(roomsFilter + "ROOMS + " + rooms?.length)}</View>
             <View>{Header()}</View>
           </View>
           {isLoading ? (
@@ -396,10 +395,30 @@ export const ScreenRent = () => {
                               item.prop?.GALLERY?.links[0]?.value,
                           }}
                         />
+                        {/*Description*/}
                         <Text style={styles.cardTextBlack}>{item?.title}</Text>
-                        <Text>{item.prop?.CITY_AREA?.links[0].value}</Text>
-                        <Text style={styles.cardTextBlack}>
-                          {item.prop?.PRICE?.links[0].value}
+                        <View style={{flexDirection: 'row'}}>
+                          <Image
+                            source={require('./image/icons8-place-marker-50.png')}
+                            style={{
+                              width: 15,
+                              height: 15,
+                              marginRight: 5,
+                              tintColor: '#274abb',
+                            }}
+                          />
+                          <Text>
+                            {item.prop?.CITY?.links[0].value +
+                              ', ' +
+                              (item.prop?.CITY_AREA?.links[0].value || '')}
+                          </Text>
+                        </View>
+                        <Text style={styles.cardTextBlackPrice}>
+                          {item.prop?.PRICE?.links[0].value?.replace(
+                            /(\d)(?=(\d\d\d)+([^\d]|$))/g,
+                            '$1 ',
+                          )}{' '}
+                          {item.prop?.CURRENCY?.links[0].value}
                         </Text>
                       </View>
                     }
@@ -535,6 +554,7 @@ export const ScreenRent = () => {
                       marginRight: 10,
                       /*borderWidth: 1, borderColor: 'gray',*/ borderRadius: 5,
                     }}
+                    keyboardType="numeric"
                   />
                 </View>
                 <View style={{flex: 1}}>
@@ -549,6 +569,7 @@ export const ScreenRent = () => {
                       marginRight: 10,
                       /*borderWidth: 1, borderColor: 'gray',*/ borderRadius: 5,
                     }}
+                    keyboardType="numeric"
                   />
                 </View>
               </View>
@@ -582,6 +603,7 @@ export const ScreenRent = () => {
                       marginRight: 10,
                       /*borderWidth: 1, borderColor: 'gray',*/ borderRadius: 5,
                     }}
+                    keyboardType="numeric"
                   />
                 </View>
                 <View style={{flex: 1}}>
@@ -596,6 +618,7 @@ export const ScreenRent = () => {
                       marginRight: 10,
                       /*borderWidth: 1, borderColor: 'gray',*/ borderRadius: 5,
                     }}
+                    keyboardType="numeric"
                   />
                 </View>
               </View>
@@ -612,6 +635,7 @@ export const ScreenRent = () => {
                       marginRight: 10,
                       /*borderWidth: 1, borderColor: 'gray',*/ borderRadius: 5,
                     }}
+                    keyboardType="numeric"
                   />
                 </View>
                 <View style={{flex: 1}}>
@@ -721,11 +745,16 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width - 210, // Вычитаем 10 для учета отступов
     /*backgroundColor: 'red',*/
   },
-  /* cardTextBlack: {
+  cardTextBlack: {
     color: 'black',
     fontSize: 16,
-    ineHeight: 1.3,
-  },*/
+  },
+
+  cardTextBlackPrice: {
+    color: 'black',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 
   dropdown: {
     margin: 16,

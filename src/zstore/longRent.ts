@@ -536,10 +536,10 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
       }
     }
     const keys = Object.keys(params);
-    console.log(keys + ' keys********');
+    //console.log(keys + ' keys********');
 
     const values = Object.values(params);
-    console.log(values + ' values********');
+    //console.log(values + ' values********');
 
     const paramString =
       '?' +
