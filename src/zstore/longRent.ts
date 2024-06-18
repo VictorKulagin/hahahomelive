@@ -498,7 +498,7 @@ export const useLongRentStore = create<LongRentState>((set, get) => ({
       clearElementsExecuted = true;
     }*/
     let encodedStringPriceF0 = encodeURIComponent('p_price_f[0]');
-    console.log(encodedStringPriceF0 + ' encodedStringPriceF0');
+    //console.log(encodedStringPriceF0 + ' encodedStringPriceF0');
 
     let params = {
       p_city: city,

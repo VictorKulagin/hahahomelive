@@ -26,6 +26,7 @@ import {Button} from 'react-native';
 import {Empty} from './components/Empty.tsx';
 
 import {Dropdown} from 'react-native-element-dropdown';
+import {Slider} from './components/Slider.js';
 
 debugger;
 
@@ -387,14 +388,23 @@ export const ScreenRent = () => {
                     {
                       <View style={styles.card}>
                         <Text>{/*item?.create_date*/}</Text>
-                        <Image
+                        <Text>
+                          {/*console.log(item.prop?.GALLERY?.links[1].value)*/}
+                        </Text>
+                        {/* <Image
                           style={styles.tinyLogo}
                           source={{
                             uri:
                               'https://hahahome.live/' +
                               item.prop?.GALLERY?.links[0]?.value,
                           }}
+                        />*/}
+                        <Slider
+                          imageObjects={item.prop?.GALLERY?.links.map(
+                            imageObj => imageObj.value,
+                          )}
                         />
+
                         {/*Description*/}
                         <Text style={styles.cardTextBlack}>{item?.title}</Text>
                         <View style={{flexDirection: 'row'}}>
