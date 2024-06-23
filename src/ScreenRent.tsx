@@ -91,6 +91,7 @@ export const ScreenRent = () => {
 
   const navigation = useNavigation();
   const setParameters = useLongRentStore(state => state.setParameters);
+  const urlLength = useLongRentStore(state => state.urlLength);
 
   const scrollViewRef = useRef(null);
   const {height: screenHeight} = useWindowDimensions();
@@ -170,6 +171,7 @@ export const ScreenRent = () => {
     }
 
     console.log('VALUE roomsFilter:', roomsFilter);
+    console.log(urlLength + ' setParameters.paramStringLength');
 
     useLongRentStore.getState().fetchRooms(
       city,
@@ -391,19 +393,20 @@ export const ScreenRent = () => {
                         <Text>
                           {/*console.log(item.prop?.GALLERY?.links[1].value)*/}
                         </Text>
-                        {/* <Image
+                        <Image
                           style={styles.tinyLogo}
                           source={{
                             uri:
                               'https://hahahome.live/' +
                               item.prop?.GALLERY?.links[0]?.value,
                           }}
-                        />*/}
-                        <Slider
+                        />
+
+                        {/* <Slider
                           imageObjects={item.prop?.GALLERY?.links.map(
                             imageObj => imageObj.value,
                           )}
-                        />
+                        />*/}
 
                         {/*Description*/}
                         <Text style={styles.cardTextBlack}>{item?.title}</Text>
@@ -482,11 +485,32 @@ export const ScreenRent = () => {
         <View style={{alignItems: 'flex-end', width: '50%', padding: 10}}>
           {/* Image that when clicked will open the modal */}
           <TouchableOpacity onPress={toggleModal}>
-            <Image
-              source={require('./image/icons8-adjust-50.png')}
-              style={{width: 30, height: 30}}
-              tintColor={'#274abb'}
-            />
+            <View style={{position: 'relative'}}>
+              <Image
+                source={require('./image/icons8-adjust-50.png')}
+                style={{
+                  width: 30,
+                  height: 30,
+                  //tintColor: urlLength > 17 ? '#FF0000' : '#274abb',
+                  /*borderRadius: 50, // чтобы сделать круглую форму
+                borderWidth: urlLength > 18 ? 2 : 0, // ширина красного кружка в зависимости от условия
+                borderColor: urlLength > 18 ? '#FF0000' : 'transparent',*/ // цвет красного кружка в зависимости от условия
+                }}
+                tintColor={'#274abb'}
+              />
+              <Image
+                style={{
+                  position: 'absolute',
+                  top: 10,
+                  left: 9,
+                  width: 11,
+                  height: 11,
+                  borderRadius: 50, // чтобы сделать круглую форму
+                  borderWidth: urlLength > 18 ? 6 : 0, // ширина красного кружка в зависимости от условия
+                  borderColor: urlLength > 18 ? '#FF0000' : 'transparent', // цвет красного кружка в зависимости от условия
+                }}
+              />
+            </View>
           </TouchableOpacity>
           {/* Modal component */}
           <Modal visible={isModalVisible} animationType="slide">

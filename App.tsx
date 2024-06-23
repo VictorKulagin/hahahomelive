@@ -11,7 +11,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-
 //import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
@@ -22,8 +21,8 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
-  View
-} from "react-native";
+  View,
+} from 'react-native';
 
 import {
   Colors,
@@ -42,7 +41,6 @@ import {ScreenPost} from './src/Tabs/ScreenPost.tsx';
 import {ScreenMessages} from './src/Tabs/ScreenMessages.tsx';
 import {ScreenProfile} from './src/Tabs/ScreenProfile.tsx';
 import {Home} from './src/Home.tsx';
-
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -146,10 +144,14 @@ const StackContainer = () => {
         component={ScreenRent}
         /*component={ScreenRentContainer}*/ options={{
           headerShown: true,
-          title: 'Долгосроцная аренда',
+          title: 'Долгосрочная аренда',
         }}
       />
-      <Stack.Screen name="CardScreenRent" component={CardScreenRent} />
+      <Stack.Screen
+        name="CardScreenRent"
+        component={CardScreenRent}
+        options={{headerShown: false, title: ''}}
+      />
       <Stack.Screen
         name="ScreenDaily"
         component={ScreenDaily}

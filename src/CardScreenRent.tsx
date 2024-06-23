@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import {useLongRentStore} from './zstore/longRent.ts';
-import {Button, Linking} from 'react-native';
+import {Button, Linking, Platform, StatusBar} from 'react-native';
 
 import {
   Text,
@@ -191,14 +191,38 @@ export const CardScreenRent = () => {
               fontSize: 28,
               color: '#000000',
             }}>{`${selectedProductTitle}`}</Text>
-          <Text>{`${selectedProductCity} , ${selectedProductCityArea}`}</Text>
-          <Text
-            style={{
-              fontSize: 28,
-              color: '#274abb',
-            }}>{`${selectedProductPrice} ${
-            selectedProductCurrency === 'Сомы' ? 'KGS' : selectedProductCurrency
-          }`}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Image
+              source={require('./image/icons8-place-marker-50.png')}
+              style={{
+                width: 15,
+                height: 15,
+                marginRight: 5,
+                tintColor: '#274abb',
+              }}
+            />
+            <Text>
+              {selectedProductCityArea
+                ? `${selectedProductCity}, ${selectedProductCityArea}`
+                : `${selectedProductCity}`}
+            </Text>
+          </View>
+          {selectedProductPrice && (
+            <Text
+              style={{
+                fontSize: 28,
+                color: '#274abb',
+              }}>
+              {`${selectedProductPrice.replace(
+                /(\d)(?=(\d\d\d)+([^\d]|$))/g,
+                '$1 ',
+              )} ${
+                selectedProductCurrency === 'Сомы'
+                  ? 'KGS'
+                  : selectedProductCurrency
+              }`}
+            </Text>
+          )}
         </View>
 
         <View style={{flex: 1}}>
@@ -208,7 +232,7 @@ export const CardScreenRent = () => {
               horizontal
               onScroll={e => {
                 // @ts-ignore
-                console.log(e.nativeEvent.contentOffset.x + ' x' + width);
+                //console.log(e.nativeEvent.contentOffset.x + ' x' + width);
                 setSelectedIndex(
                   (e.nativeEvent.contentOffset.x / width).toFixed(0),
                 );
@@ -289,20 +313,22 @@ export const CardScreenRent = () => {
           </View>
           <View style={styles.blockRooms}>
             <View>
-              <Text>{`${selectedProductRooms}`}</Text>
+              <Text
+                style={{fontWeight: 'bold'}}>{`${selectedProductRooms}`}</Text>
               <Text>{'Квартира'}</Text>
             </View>
             <View>
-              <Text>{`${selectedProductFloor}`}</Text>
+              <Text
+                style={{fontWeight: 'bold'}}>{`${selectedProductFloor}`}</Text>
               <Text>{'Комната'}</Text>
             </View>
           </View>
           <View>
-            <Text>{'Описание'}</Text>
+            <Text style={styles.blockOptions}>{'Описание'}</Text>
             <Text>{`${selectedProductAnons}`}</Text>
           </View>
           <View>
-            <Text>{'Общая информация'}</Text>
+            <Text style={styles.blockOptions}>{'Общая информация'}</Text>
             <View style={styles.blockGeneralInformation}>
               {selectedProductFOT !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
@@ -437,6 +463,7 @@ export const CardScreenRent = () => {
                   )}
                 </View>
               )}
+              <Text style={styles.blockOptions}>{'Расположение'}</Text>
               <Button
                 title="Открыть Яндекс Карты с маркером"
                 onPress={openYandexMapsWithMarker}
@@ -444,11 +471,16 @@ export const CardScreenRent = () => {
               {selectedProductSellerPhone !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
                   <Text
-                    style={
-                      styles.optionsHome
-                    }>{`${selectedProductSellerPhoneName}`}</Text>
+                    style={[
+                      styles.optionsHome,
+                      styles.blockOptions,
+                      {fontWeight: '300', fontSize: 18},
+                    ]}>{`${selectedProductSellerPhoneName}`}</Text>
                   {selectedProductSellerPhone !== null && (
-                    <Text>{`${selectedProductSellerPhone}`}</Text>
+                    <Text
+                      style={
+                        styles.blockOptions
+                      }>{`${selectedProductSellerPhone}`}</Text>
                   )}
                 </View>
               )}
@@ -464,6 +496,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   scrollContainer: {
     flexGrow: 1,
@@ -472,13 +507,13 @@ const styles = StyleSheet.create({
   blockRooms: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: '#707070',
+    backgroundColor: '#f9f9f9',
     width: '100%',
     display: 'block',
     listStyle: 'none',
     margin: 0,
     paddingBottom: 24,
-    paddingTop: 0,
+    paddingTop: 20,
     paddingLeft: 30,
     paddingRight: 30,
   },
@@ -491,6 +526,14 @@ const styles = StyleSheet.create({
   },
   blockGeneralInformationEach: {
     flexDirection: 'row',
+  },
+
+  blockOptions: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    paddingTop: 20,
+    paddingBottom: 20,
+    color: '#000000',
   },
 
   optionsHome: {
