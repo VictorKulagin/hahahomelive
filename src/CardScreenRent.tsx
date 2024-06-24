@@ -230,7 +230,7 @@ export const CardScreenRent = () => {
             <FlatList
               pagingEnabled
               horizontal
-              snapToInterval={width}
+              //snapToInterval={width}
               onScroll={e => {
                 // @ts-ignore
                 //console.log(e.nativeEvent.contentOffset.x + ' x' + width);
