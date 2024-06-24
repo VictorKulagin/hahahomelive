@@ -230,6 +230,7 @@ export const CardScreenRent = () => {
             <FlatList
               pagingEnabled
               horizontal
+              snapToInterval={width}
               onScroll={e => {
                 // @ts-ignore
                 //console.log(e.nativeEvent.contentOffset.x + ' x' + width);
@@ -240,15 +241,13 @@ export const CardScreenRent = () => {
               data={selectedProductPicturesMass}
               showsHorizontalScrollIndicator={false}
               renderItem={({item, index}) => {
+                {
+                  console.log(item[0] + ' activeIndex ' + activeIndex);
+                }
                 return (
                   <Image
                     source={{
-                      uri: `https://hahahome.live/${
-                        typeof selectedProductPicturesMass[activeIndex] ===
-                        'object'
-                          ? selectedProductPicturesMass[activeIndex]?.value
-                          : selectedProductPicturesMass[activeIndex]
-                      }`,
+                      uri: `https://hahahome.live/${item.value}`,
                     }}
                     style={{width: width, height: height / 2.3}}
                   />
@@ -271,9 +270,10 @@ export const CardScreenRent = () => {
                     <View
                       style={{
                         backgroundColor:
-                          selectedIndex == index ? '#BeBeBe' : '#f2f2f2',
-                        height: 5,
-                        width: 20,
+                          selectedIndex == index ? '#274abb' : '#f2f2f2',
+                        height: 12,
+                        width: 30,
+                        borderRadius: 10,
                       }}
                     />
                   );
@@ -282,7 +282,7 @@ export const CardScreenRent = () => {
             </View>
           </View>
           <View>
-            <FlatList
+            {/*<FlatList
               data={selectedProductPicturesMass}
               horizontal
               renderItem={({item, index}) => {
@@ -296,7 +296,7 @@ export const CardScreenRent = () => {
                     }}
                     onPress={() => {
                       setActiveIndex(index);
-                      /*setActiveIndex(0);*/
+
                     }}>
                     <Image
                       source={{
@@ -309,7 +309,7 @@ export const CardScreenRent = () => {
                   </TouchableOpacity>
                 );
               }}
-            />
+            />*/}
           </View>
           <View style={styles.blockRooms}>
             <View>
