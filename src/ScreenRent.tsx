@@ -399,6 +399,7 @@ export const ScreenRent = () => {
                       )
                     }>
                     {
+                      <View style={{marginHorizontal: Dimensions.get('window').width * 0.005}}>
                       <View style={[styles.card, {backgroundColor: theme === 'dark' ? '#000000' : '#ffffff'}]}>
                         <Text>{/*item?.create_date*/}</Text>
                         <Text>
@@ -412,8 +413,7 @@ export const ScreenRent = () => {
                               item.prop?.GALLERY?.links[0]?.value,
                           }}
                         />
-
-                        {/* <Slider
+                         {/* <Slider
                           imageObjects={item.prop?.GALLERY?.links.map(
                             imageObj => imageObj.value,
                           )}
@@ -445,6 +445,7 @@ export const ScreenRent = () => {
                           )}{' '}
                           {item.prop?.CURRENCY?.links[0].value}
                         </Text>
+                      </View>
                       </View>
                     }
                   </TouchableWithoutFeedback>
@@ -795,16 +796,14 @@ const styles = StyleSheet.create({
   },*/
   tinyLogo: {
     //height: 195,
-    height: Dimensions.get('window').width - 190, // Вычитаем 10 для учета отступов
+    width: '100%',
+    height: Dimensions.get('window').width / 2, // Вычитаем 10 для учета отступов
     borderRadius: 5,
   },
+
   card: {
     backgroundColor: 'white',
-    padding: 1.5,
-    marginLeft: 2,
-    marginRight: 2,
-    width: Dimensions.get('window').width - 210, // Вычитаем 10 для учета отступов
-    /*backgroundColor: 'red',*/
+    width: Dimensions.get('window').width / 2 - Dimensions.get('window').width * 0.008, // Вычитаем 10 для учета отступов
   },
   cardTextBlack: {
     color: 'black',
