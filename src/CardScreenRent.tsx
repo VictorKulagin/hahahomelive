@@ -339,139 +339,187 @@ export const CardScreenRent = () => {
             <Text style={[styles.blockOptions, {color: theme === 'dark' ? '#ffffff' : '#000000'}]}>{'Описание'}</Text>
             <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductAnons}`}</Text>
           </View>
-          <View>
+          <View style={{width: '100%'}}>
             <Text style={[styles.blockOptions, {color: theme === 'dark' ? '#ffffff' : '#000000'}]}>{'Общая информация'}</Text>
             <View style={styles.blockGeneralInformation}>
               {selectedProductFOT !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
-                  <Text
+                  <View style={{width: '40%'}}>
+                    <Text
                     style={
                       [styles.optionsHome, {color: theme === 'dark' ? '#ffffff' : '#000000'}]
                     }>{`${selectedProductFOTName}`}</Text>
+                  </View>
                   {selectedProductFOT !== null && (
-                    <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductFOT}`}</Text>
+                      <View style={{width: '60%'}}>
+                        <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductFOT}`}</Text>
+                      </View>
                   )}
                 </View>
               )}
               {selectedProductCOMM !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
+                  <View style={{width: '40%'}}>
                   <Text
                     style={
                       [styles.optionsHome, {color: theme === 'dark' ? '#ffffff' : '#000000'}]
                     }>{`${selectedProductCOMMName}`}</Text>
+                  </View>
                   {selectedProductCOMM !== null && (
+                      <View style={{width: '60%'}}>
                     <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductCOMM}`}</Text>
+                      </View>
                   )}
                 </View>
               )}
               {selectedProductFURN !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
+                  <View style={{width: '40%'}}>
                   <Text
                     style={
                       [styles.optionsHome, {color: theme === 'dark' ? '#ffffff' : '#000000'}]
                     }>{`${selectedProductFURNName}`}</Text>
+                  </View>
                   {selectedProductFURN !== null && (
-                    <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductFURN}`}</Text>
+                    <View style={{width: '60%'}}>
+                      <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductFURN}`}</Text>
+                    </View>
                   )}
                 </View>
               )}
               {selectedProductHHAP !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
+                  <View style={{width: '40%'}}>
                   <Text
                     style={
                       [styles.optionsHome, {color: theme === 'dark' ? '#ffffff' : '#000000'}]
                     }>{`${selectedProductHHAPName}`}</Text>
+                  </View>
                   {selectedProductHHAP !== null && (
+                   <View style={{width: '60%'}}>
                     <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductHHAP}`}</Text>
+                   </View>
                   )}
                 </View>
               )}
               {selectedProductAP_IMP !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
+                  <View style={{width: '40%'}}>
                   <Text
                     style={
                       [styles.optionsHome, {color: theme === 'dark' ? '#ffffff' : '#000000'}]
                     }>{`${selectedProductAP_IMPName}`}</Text>
+                  </View>
                   {selectedProductAP_IMP !== null && (
+                    <View style={{width: '60%'}}>
                     <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductAP_IMP}`}</Text>
+                    </View>
                   )}
                 </View>
               )}
               {selectedProductSettlement !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
+                  <View style={{width: '40%'}}>
                   <Text
                     style={
                       [styles.optionsHome, {color: theme === 'dark' ? '#ffffff' : '#000000'}]
                     }>{`${selectedProductSettlementName}`}</Text>
+                  </View>
                   {selectedProductSettlement !== null && (
+                    <View style={{width: '60%'}}>
                     <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductSettlement}`}</Text>
+                    </View>
                   )}
                 </View>
               )}
               {selectedProductSeller !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
+                  <View style={{width: '40%'}}>
                   <Text
                     style={
                       [styles.optionsHome, {color: theme === 'dark' ? '#ffffff' : '#000000'}]
                     }>{`${selectedProductSellerName}`}</Text>
+                  </View>
                   {selectedProductSeller !== null && (
+                    <View style={{width: '60%'}}>
                     <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductSeller}`}</Text>
+                    </View>
                   )}
                 </View>
               )}
               {selectedProductSeries !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
+                  <View style={{width: '40%'}}>
                   <Text
                     style={
                       [styles.optionsHome, {color: theme === 'dark' ? '#ffffff' : '#000000'}]
                     }>{`${selectedProductSeriesName}`}</Text>
+                  </View>
                   {selectedProductSeries !== null && (
+                    <View style={{width: '60%'}}>
                     <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductSeries}`}</Text>
+                    </View>
                   )}
                 </View>
               )}
               {selectedProductRepair !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
+                  <View style={{width: '40%'}}>
                   <Text
                     style={
                       [styles.optionsHome, {color: theme === 'dark' ? '#ffffff' : '#000000'}]
                     }>{`${selectedProductRepairName}`}</Text>
+                  </View>
                   {selectedProductRepair !== null && (
+                    <View style={{width: '60%'}}>
                     <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductRepair}`}</Text>
+                    </View>
                   )}
                 </View>
               )}
               {selectedProductTermsAnimals !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
+                  <View style={{width: '40%'}}>
                   <Text
                     style={
                       [styles.optionsHome, {color: theme === 'dark' ? '#ffffff' : '#000000'}]
                     }>{`${selectedProductTermsAnimalsName}`}</Text>
+                  </View>
                   {selectedProductTermsAnimals !== null && (
+                    <View style={{width: '60%'}}>
                     <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductTermsAnimals}`}</Text>
+                    </View>
                   )}
                 </View>
               )}
               {selectedProductRentType !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
+                  <View style={{width: '40%'}}>
                   <Text
                     style={
                       [styles.optionsHome, {color: theme === 'dark' ? '#ffffff' : '#000000'}]
                     }>{`${selectedProductRentTypeName}`}</Text>
+                  </View>
                   {selectedProductRentType !== null && (
+                    <View style={{width: '60%'}}>
                     <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductRentType}`}</Text>
+                    </View>
                   )}
                 </View>
               )}
 
               {selectedProductTermsChildren !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
+                  <View style={{width: '40%'}}>
                   <Text
                     style={
                       [styles.optionsHome, {color: theme === 'dark' ? '#ffffff' : '#000000'}]
                     }>{`${selectedProductTermsChildrenName}`}</Text>
+                  </View>
                   {selectedProductTermsChildren !== null && (
+                    <View style={{width: '60%'}}>
                     <Text style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}>{`${selectedProductTermsChildren}`}</Text>
+                    </View>
                   )}
                 </View>
               )}
@@ -482,6 +530,7 @@ export const CardScreenRent = () => {
               />
               {selectedProductSellerPhone !== undefined && (
                 <View style={styles.blockGeneralInformationEach}>
+                  <View style={{width: '40%'}}>
                   <Text
                     style={[
                       styles.optionsHome,
@@ -489,11 +538,14 @@ export const CardScreenRent = () => {
                       {fontWeight: '300', fontSize: 18},
                       {color: theme === 'dark' ? '#ffffff' : '#000000'}
                     ]}>{`${selectedProductSellerPhoneName}`}</Text>
+                  </View>
                   {selectedProductSellerPhone !== null && (
+                    <View style={{width: '60%'}}>
                     <Text
                       style={
                         [styles.blockOptions, {color: theme === 'dark' ? '#ffffff' : '#000000'}]
                       }>{`${selectedProductSellerPhone}`}</Text>
+                    </View>
                   )}
                 </View>
               )}
@@ -540,6 +592,7 @@ const styles = StyleSheet.create({
   },
   blockGeneralInformationEach: {
     flexDirection: 'row',
+    //flexWrap: 'wrap'
   },
 
   blockOptions: {
@@ -551,9 +604,9 @@ const styles = StyleSheet.create({
   },
 
   optionsHome: {
-    width: '50%',
+    /*width: '50%',*/
     textAlign: 'left',
-    paddingRight: 50,
+    /*paddingRight: 50,*/
     /*width: '100%',*/
   },
   map: {
